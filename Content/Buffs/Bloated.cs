@@ -1,0 +1,29 @@
+using System.Reflection;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ChallengingTerrariaMod.Content.Buffs
+{
+    public class Bloated : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Bloated");
+            // Description.SetDefault("Excessively full!");
+            Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.moveSpeed *= 0.60f;
+            player.jumpSpeedBoost *= 0.60f;
+            player.wingTime /= 1.40f;
+            player.pickSpeed += 0.30f;
+        }
+    }
+}

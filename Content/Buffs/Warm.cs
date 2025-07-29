@@ -1,0 +1,25 @@
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+
+namespace ChallengingTerrariaMod.Content.Buffs
+{
+    public class Warm : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Warm");
+            // Description.SetDefault("-3 defense and -5% damage."); //
+            Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.statDefense -= 3; // -3 defense
+            player.GetDamage(DamageClass.Generic) -= 0.05f; // -5% damage
+        }
+    }
+}

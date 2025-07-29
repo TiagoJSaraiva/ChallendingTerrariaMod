@@ -1,0 +1,55 @@
+// ChallengingTerrariaMod/Content/Buffs/ThrowingUp.cs
+using Terraria;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.DataStructures; // Para PlayerDeathReason
+
+namespace ChallengingTerrariaMod.Content.Buffs
+{
+    public class ThrowingUp : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Throwing Up");
+            Description.SetDefault("You are violently throwing up.");
+            Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = true;
+            // Main.persistentBuff[Type] = false; // Default para buffs que não são salvos
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.moveSpeed *= 0.10f; // 90% de redução de velocidade
+            player.velocity *= 0.10f; // Reduz o momentum também
+
+            // Dano de 20% da vida máxima
+            if (player.whoAmI == Main.myPlayer && player.lifeRegenTime % 10 == 0) // Dano rápido, ajusta o tick conforme o necessário
+            {
+                player.statLife -= (int)(player.statLifeMax2 * 0.005f); // Aplica dano fracionado para totalizar 20% em 2s (120 ticks)
+                                                                       // 0.20 / 120 ticks = 0.00166... ou faça a cada 10 ticks
+                                                                       // Dano total será (120/10) * 0.005 = 12 * 0.005 = 0.06 (6%) da vida
+                                                                       // Para 20% em 2s (120 ticks): 0.20 / 12 = 0.0166
+                // Player.Hurt(PlayerDeathReason.ByOther(1), (int)(player.statLifeMax2 * 0.20f / 12), 0); // Para aplicar dano usando o sistema de dano do Terraria (mais complexo)
+                if (player.statLife <= 0)
+                {
+                    player.KillMe(PlayerDeathReason.ByOther(1), 1.0, 0);
+                }
+            }
+
+            // Partículas verdes (BloodFX, mas verde)
+            if (Main.rand.NextBool(5)) // A cada 5 frames
+            {
+                Dust.NewDust(player.position, player.width, player.height, DustID.Smoke, 0f, 0f, 100, new Color(0, 255, 0), 1.5f);
+            }
+
+            // Tocar áudio (exemplo: som de vômito, ou som de debuff)
+            // if (player.whoAmI == Main.myPlayer && Main.rand.NextBool(60)) // A cada segundo, aprox.
+            // {
+            //     SoundEngine.PlaySound(SoundID.NPCDeath1, player.position); // Substitua por seu som
+            // }
+        }
+    }
+}

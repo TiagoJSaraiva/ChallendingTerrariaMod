@@ -1,0 +1,41 @@
+// ChallengingTerrariaMod/Content/Buffs/Famished.cs
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using Terraria.DataStructures;
+
+namespace ChallengingTerrariaMod.Content.Buffs
+{
+    public class Famished : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Famished");
+            Description.SetDefault("You're starving! Significant reduction to mining speed, damage, and critical strike chance. You take damage over time and cannot naturally regenerate life.");
+            Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.pickSpeed += 0.20f; // 20% mais lento
+            player.GetDamage(DamageClass.Generic) -= 0.15f; // 15% de redução de dano
+            player.GetCritChance(DamageClass.Generic) -= 10; // 10% de redução de chance de crítico
+
+            // Dano a cada 120 ticks (2 segundos)
+            if (player.whoAmI == Main.myPlayer && player.lifeRegenTime % 120 == 0)
+            {
+                player.statLife -= 1;
+                if (player.statLife <= 0)
+                {
+                    player.KillMe(PlayerDeathReason.ByOther(1), 1.0, 0); // Morte se a vida chegar a 0
+                }
+            }
+            // Impede regeneração de vida natural
+            player.lifeRegen = 0;
+            player.lifeRegenTime = 0;
+        }
+    }
+}

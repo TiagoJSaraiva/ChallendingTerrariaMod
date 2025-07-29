@@ -1,0 +1,35 @@
+﻿// Em ChallengingTerrariaMod/Content/Buffs/Freezing.cs
+
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+
+namespace ChallengingTerrariaMod.Content.Buffs
+{
+    public class Freezing : ModBuff
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Freezing");
+            // Description.SetDefault("-30% mining speed, -10 hp/s, Chilled permanent, 5% chance to gain Frozen debuff every 60 ticks.");
+            Main.debuff[Type] = true;
+            Main.pvpBuff[Type] = true;
+            Main.buffNoSave[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.pickSpeed += 0.30f; // -30% mining speed
+            player.lifeRegen -= 40; // -10 hp/s (10 * 60 ticks/s)
+            player.moveSpeed += 0.20f;
+           
+
+            // 5% de chance de contrair o debuff frozen repentinamente a cada 60 ticks
+            if (Main.GameUpdateCount % 60 == 0 && Main.rand.NextFloat() < 0.05f)
+            {
+                player.AddBuff(BuffID.Frozen, 120); // 2 segundos de Frozen (buff vanilla)
+            }
+        }
+    }
+}
