@@ -32,7 +32,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             hungerFillTextures = new Asset<Texture2D>[TotalSprites];
             for (int i = 0; i < TotalSprites; i++)
             {
-                string texturePath = $"ChallengingTerrariaMod/Content/Systems/UI/Images/HungerMeter/HungerFill ({i})";
+                string texturePath = $"ChallengingTerrariaMod/Content/Systems/UI/Images/HungerMeter/HungerMeter_{i}";
                 hungerFillTextures[i] = ModContent.Request<Texture2D>(texturePath, AssetRequestMode.ImmediateLoad);
             }
 

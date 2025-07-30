@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("ChallengingTerrariaModMod")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ChallengingTerrariaMod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("ChallengingTerrariaModMod")]
-[assembly: System.Reflection.AssemblyTitleAttribute("ChallengingTerrariaModMod")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2a3a52582778b48005ee714c81056e5985de4e09")]
+[assembly: System.Reflection.AssemblyProductAttribute("ChallengingTerrariaMod")]
+[assembly: System.Reflection.AssemblyTitleAttribute("ChallengingTerrariaMod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
