@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "AwG28Nv9Gmk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\tiago\\OneDrive\\Documentos\\My Games\\Terraria\\tModLoader\\ModSources\\ChallengingTerrariaMod\\ChallengingTerrariaMod.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tiago\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

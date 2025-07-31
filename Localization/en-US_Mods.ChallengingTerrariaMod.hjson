@@ -1,4 +1,3 @@
-
 Buffs: {
 	Bloated: {
 		DisplayName: Bloated
@@ -74,158 +73,103 @@ Buffs: {
 		DisplayName: Warm
 		Description: Mods.ChallengingTerrariaMod.Buffs.Warm.Description
 	}
+
+	Tired: {
+		Description: Mods.ChallengingTerrariaMod.Buffs.Tired.Description
+		DisplayName: Tired
+	}
+
+	Sleepy: {
+		Description: Mods.ChallengingTerrariaMod.Buffs.Sleepy.Description
+		DisplayName: Sleepy
+	}
+
+	Fainted: {
+		Description: Mods.ChallengingTerrariaMod.Buffs.Fainted.Description
+		DisplayName: Fainted
+	}
+
+	Exhausted: {
+		Description: Mods.ChallengingTerrariaMod.Buffs.Exhausted.Description
+		DisplayName: Exhausted
+	}
 }
 
 od: {
 	Buffs: {
 		Bloated: {
-			DisplayName: {
-				$parentVal: Bloated
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Bloated.Description
-			}
+			DisplayName: Bloated
+			Description: Mods.ChallengingTerrariaMod.Buffs.Bloated.Description
 		}
 
 		Cold: {
-			DisplayName: {
-				$parentVal: Cold
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Cold.Description
-			}
+			DisplayName: Cold
+			Description: Mods.ChallengingTerrariaMod.Buffs.Cold.Description
 		}
 
 		Famished: {
-			DisplayName: {
-				$parentVal: Famished
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Famished.Description
-			}
+			DisplayName: Famished
+			Description: Mods.ChallengingTerrariaMod.Buffs.Famished.Description
 		}
 
 		Freezing: {
-			DisplayName: {
-				$parentVal: Freezing
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Freezing.Description
-			}
+			DisplayName: Freezing
+			Description: Mods.ChallengingTerrariaMod.Buffs.Freezing.Description
 		}
 
 		Full: {
-			DisplayName: {
-				$parentVal: Full
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Full.Description
-			}
+			DisplayName: Full
+			Description: Mods.ChallengingTerrariaMod.Buffs.Full.Description
 		}
 
 		Hot: {
-			DisplayName: {
-				$parentVal: Hot
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Hot.Description
-			}
+			DisplayName: Hot
+			Description: Mods.ChallengingTerrariaMod.Buffs.Hot.Description
 		}
 
 		Hungry: {
-			DisplayName: {
-				$parentVal: Hungry
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Hungry.Description
-			}
+			DisplayName: Hungry
+			Description: Mods.ChallengingTerrariaMod.Buffs.Hungry.Description
 		}
 
 		Nauseous: {
-			DisplayName: {
-				$parentVal: Nauseous
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Nauseous.Description
-			}
+			DisplayName: Nauseous
+			Description: Mods.ChallengingTerrariaMod.Buffs.Nauseous.Description
 		}
 
 		Peckish: {
-			DisplayName: {
-				$parentVal: Peckish
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Peckish.Description
-			}
+			DisplayName: Peckish
+			Description: Mods.ChallengingTerrariaMod.Buffs.Peckish.Description
 		}
 
 		Scorching: {
-			DisplayName: {
-				$parentVal: Scorching
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Scorching.Description
-			}
+			DisplayName: Scorching
+			Description: Mods.ChallengingTerrariaMod.Buffs.Scorching.Description
 		}
 
 		Starved: {
-			DisplayName: {
-				$parentVal: Starved
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Starved.Description
-			}
+			DisplayName: Starved
+			Description: Mods.ChallengingTerrariaMod.Buffs.Starved.Description
 		}
 
 		Stuffed: {
-			DisplayName: {
-				$parentVal: Stuffed
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Stuffed.Description
-			}
+			DisplayName: Stuffed
+			Description: Mods.ChallengingTerrariaMod.Buffs.Stuffed.Description
 		}
 
 		ThrowingUp: {
-			DisplayName: {
-				$parentVal: Throwing Up
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.ThrowingUp.Description
-			}
+			DisplayName: Throwing Up
+			Description: Mods.ChallengingTerrariaMod.Buffs.ThrowingUp.Description
 		}
 
 		VeryCold: {
-			DisplayName: {
-				$parentVal: Very Cold
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.VeryCold.Description
-			}
+			DisplayName: Very Cold
+			Description: Mods.ChallengingTerrariaMod.Buffs.VeryCold.Description
 		}
 
 		Warm: {
-			DisplayName: {
-				$parentVal: Warm
-			}
-
-			Description: {
-				$parentVal: Mods.ChallengingTerrariaMod.Buffs.Warm.Description
-			}
+			DisplayName: Warm
+			Description: Mods.ChallengingTerrariaMod.Buffs.Warm.Description
 		}
 	}
 }
