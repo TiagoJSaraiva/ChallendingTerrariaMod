@@ -41,8 +41,8 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             }
 
             warmthMeterImage = new UIImage(warmthBaseTexture.Value);
-            warmthMeterImage.Left.Set(550f, 0f);
-            warmthMeterImage.Top.Set(10f, 0f);
+            warmthMeterImage.Left.Set(1100f, 0f);
+            warmthMeterImage.Top.Set(20f, 0f);
             warmthMeterImage.Width.Set(60f, 0f);
             warmthMeterImage.Height.Set(60f, 0f);
             warmthMeterImage.SetPadding(0);

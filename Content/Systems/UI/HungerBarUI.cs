@@ -23,8 +23,8 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
         {
             area = new UIElement();
             int spriteSize = 50; 
-            area.Left.Set(600, 0f);
-            area.Top.Set(10, 0f);
+            area.Left.Set(1200f, 0f);
+            area.Top.Set(20f, 0f);
             area.Width.Set(spriteSize, 0f);
             area.Height.Set(spriteSize, 0f);
             Append(area);

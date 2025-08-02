@@ -26,8 +26,8 @@ namespace ChallengingTerrariaMod.Content.Systems
         public const int MinTemperature = 0;
         public const int MaxTemperature = 2000;
 
-        // Fator de normalização (AJUSTADO PARA 20, conforme a nova regra)
-        private const int NORMALIZATION_RATE = 20;
+        // Fator de normalização 
+        private const int NORMALIZATION_RATE = 10;
 
         // Nova variável para armazenar a temperatura anterior de CADA jogador
         // Usamos um array pois pode haver múltiplos jogadores.
@@ -108,7 +108,6 @@ namespace ChallengingTerrariaMod.Content.Systems
                         WarmthPlayer warmthPlayer = player.GetModPlayer<WarmthPlayer>();
                         if (warmthPlayer == null) continue;
 
-                        int tempBeforeCalculation = warmthPlayer.CurrentTemperature;
                         int currentTemperatureIncrement = CalculateTemperatureIncrement(player, warmthPlayer.CurrentTemperature);
                         
                         // Aplica o incremento calculado das fontes ambientais/de buff
@@ -117,13 +116,13 @@ namespace ChallengingTerrariaMod.Content.Systems
                         // --- Lógica de Morte por Temperatura Extrema ---
                         if (warmthPlayer.CurrentTemperature >= MaxTemperature) // 2000
                         {
-                            player.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromLiteral(player.name + " turned to ashes")), 9999, 0);
+                            player.KillMe(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(player.name + " turned to ashes")), 9999, 0);
                             warmthPlayer.CurrentTemperature = ComfortableTemperature;
                             continue;
                         }
                         else if (warmthPlayer.CurrentTemperature <= MinTemperature) // 0
                         {
-                            player.KillMe(Terraria.DataStructures.PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromLiteral(player.name + "'s vital organs turned to ice")), 9999, 0);
+                            player.KillMe(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(player.name + "'s vital organs turned to ice")), 9999, 0);
                             warmthPlayer.CurrentTemperature = ComfortableTemperature;
                             continue;
                         }
@@ -162,30 +161,83 @@ namespace ChallengingTerrariaMod.Content.Systems
 
         private int CalculateTemperatureIncrement(Player player, int currentTemperature)
         {
+            bool hotSourceDetected;
+            bool inWaterLiquid;
+
             List<int> increments = new List<int>();
 
+            Point playerTileCoords = player.Center.ToTileCoordinates();
+            int detectionRadiusTiles = (int)DETECTION_RADIUS_TILES;
+
+            // Fontes de Calor (Fogueira, Fornalhas, etc.) - apenas se currentTemperature < ComfortableTemperature
+            
+            hotSourceDetected = false;
+            for (int x = playerTileCoords.X - detectionRadiusTiles; x <= playerTileCoords.X + detectionRadiusTiles; x++)
+            {
+                for (int y = playerTileCoords.Y - detectionRadiusTiles; y <= playerTileCoords.Y + detectionRadiusTiles; y++)
+                {
+                    if (!WorldGen.InWorld(x, y)) continue;
+
+                    Tile tile = Main.tile[x, y];
+
+                    if (tile.HasTile && (
+                        tile.TileType == TileID.Furnaces ||
+                        tile.TileType == TileID.Hellforge ||
+                        tile.TileType == TileID.AdamantiteForge || // Inclui Adamantite e Titanium Forge
+                        tile.TileType == TileID.Fireplace ||
+                        tile.TileType == TileID.GlassKiln ||
+                        tile.TileType == TileID.LihzahrdFurnace ||
+                        tile.TileType == TileID.Campfire
+                    ))
+                    {
+                        hotSourceDetected = true;
+                        if (currentTemperature < ComfortableTemperature)
+                        {
+                            increments.Add(20);
+                        }
+                        break;
+                    }
+                }
+                if (hotSourceDetected) {
+                    break;
+                }
+            }
+
+            // Dentro da Água - apenas se currentTemperature > ComfortableTemperature
+            
+            inWaterLiquid = false;
+
+            if (player.wet && !player.lavaWet && !player.honeyWet)
+            {
+                inWaterLiquid = true;
+                if (currentTemperature > ComfortableTemperature)
+                {
+                    increments.Add(-20);
+                }  
+            }
+            
             // --- Fontes Primárias ---
 
             // A noite quando na superfície
-            if (!Main.dayTime && player.ZoneOverworldHeight)
+            if (!Main.dayTime && player.ZoneOverworldHeight && !hotSourceDetected)
             {
-                increments.Add(-5);
+                increments.Add(-10);
             }
             // Na tundra (qualquer camada)
-            if (player.ZoneSnow)
+            if (player.ZoneSnow && !hotSourceDetected)
             {
                 increments.Add(-15);
             }
             // Durante Chuvas quando na superfície
-            // Detecção de Tempestade: Chuva forte (Main.raining) + Cobertura de nuvens intensa (Main.cloudAlpha)
-            if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight)
-            {
-                increments.Add(-10); // Tempestade
-            }
-            else if (Main.raining && player.ZoneOverworldHeight)
-            {
-                increments.Add(-5); // Chuva normal
-            }
+                // Detecção de Tempestade: Chuva forte (Main.raining) + Cobertura de nuvens intensa (Main.cloudAlpha)
+                if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight && !hotSourceDetected)
+                {
+                    increments.Add(-10); // Tempestade
+                }
+                else if (Main.raining && player.ZoneOverworldHeight && !hotSourceDetected)
+                {
+                    increments.Add(-5); // Chuva normal
+                }
 
             // Sob efeito de Buffs
             if (player.HasBuff(BuffID.OnFire))
@@ -196,21 +248,20 @@ namespace ChallengingTerrariaMod.Content.Systems
             {
                 increments.Add(-10);
             }
-            // Assumindo que "Chilled" refere-se ao buff customizado ChallengingTerrariaMod.Content.Buffs.Chilled
             if (player.HasBuff(BuffID.Chilled)) 
             {
                 increments.Add(-15);
             }
 
             // Na praia de dia
-            if (player.ZoneBeach && Main.dayTime)
+            if (player.ZoneBeach && Main.dayTime && !inWaterLiquid)
             {
                 increments.Add(10);
             }
             // No deserto de dia
-            if (player.ZoneDesert && Main.dayTime)
+            if (player.ZoneDesert && Main.dayTime && !inWaterLiquid)
             {
-                increments.Add(10);
+                increments.Add(15);
             }
             // No Inferno
             if (player.ZoneUnderworldHeight)
@@ -221,73 +272,6 @@ namespace ChallengingTerrariaMod.Content.Systems
             if (player.ZoneSkyHeight)
             {
                 increments.Add(55);
-            }
-
-            // --- Fontes Secundárias (Condicionais) ---
-            // As fontes de calor só funcionam se a temperatura atual for menor que a confortável (1000).
-            // As fontes de frio só funcionam se a temperatura atual for maior que a confortável (1000).
-
-            Point playerTileCoords = player.Center.ToTileCoordinates();
-            int detectionRadiusTiles = (int)DETECTION_RADIUS_TILES;
-
-            // Fontes de Calor (Fogueira, Fornalhas, etc.) - apenas se currentTemperature < ComfortableTemperature
-            if (currentTemperature < ComfortableTemperature)
-            {
-                bool hotSourceDetected = false;
-                for (int x = playerTileCoords.X - detectionRadiusTiles; x <= playerTileCoords.X + detectionRadiusTiles; x++)
-                {
-                    for (int y = playerTileCoords.Y - detectionRadiusTiles; y <= playerTileCoords.Y + detectionRadiusTiles; y++)
-                    {
-                        if (!WorldGen.InWorld(x, y)) continue;
-
-                        Tile tile = Main.tile[x, y];
-
-                        if (tile.HasTile && (
-                            tile.TileType == TileID.Furnaces ||
-                            tile.TileType == TileID.Hellforge ||
-                            tile.TileType == TileID.AdamantiteForge || // Inclui Adamantite e Titanium Forge
-                            tile.TileType == TileID.Fireplace ||
-                            tile.TileType == TileID.GlassKiln ||
-                            tile.TileType == TileID.LihzahrdFurnace ||
-                            tile.TileType == TileID.Campfire
-                        ))
-                        {
-                            increments.Add(40);
-                            hotSourceDetected = true;
-                            break; // Apenas uma fonte de calor por vez
-                        }
-                    }
-                    if (hotSourceDetected) break;
-                }
-            }
-
-            // Dentro da Água - apenas se currentTemperature > ComfortableTemperature
-            if (currentTemperature > ComfortableTemperature)
-            {
-                bool inWaterLiquid = false;
-                // Verifica a caixa de colisão do jogador para tiles de água
-                int startX = (int)(player.position.X / 16);
-                int endX = (int)((player.position.X + player.width) / 16);
-                int startY = (int)(player.position.Y / 16);
-                int endY = (int)((player.position.Y + player.height) / 16);
-
-                for (int x = startX; x <= endX; x++)
-                {
-                    for (int y = startY; y <= endY; y++)
-                    {
-                        if (WorldGen.InWorld(x, y) && Main.tile[x, y].HasTile && Main.tile[x, y].LiquidType == LiquidID.Water && Main.tile[x, y].LiquidAmount > 0)
-                        {
-                            inWaterLiquid = true;
-                            break;
-                        }
-                    }
-                    if (inWaterLiquid) break;
-                }
-
-                if (inWaterLiquid)
-                {
-                    increments.Add(-30);
-                }
             }
 
             return increments.Sum();

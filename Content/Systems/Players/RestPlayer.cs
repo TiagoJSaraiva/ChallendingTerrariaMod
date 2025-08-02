@@ -38,21 +38,8 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             // Garante que o jogador está ativo e não morto/fantasma para processar o sono
             if (Player.active && !Player.dead && !Player.ghost)
             {
-                // Se o jogador estiver desmaiado, forçamos que ele não se mova ou use itens
                 if (isFainted)
                 {
-                    Player.controlLeft = false;
-                    Player.controlRight = false;
-                    Player.controlUp = false;
-                    Player.controlDown = false;
-                    Player.controlJump = false;
-                    Player.controlHook = false;
-                    Player.controlUseItem = false;
-                    Player.controlUseTile = false;
-                    Player.controlThrow = false;
-                    Player.gravDir = 1f; // Garante que ele caia
-                    Player.velocity.X = 0f; // Impede movimento horizontal
-
                     // Controla a duração do debuff Fainted
                     faintedTimer++;
                     if (faintedTimer >= 10 * 60) // 10 segundos * 60 ticks/segundo
@@ -65,6 +52,33 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                     }
                 }
             }
+        }
+
+        public override void PreUpdateMovement()
+        {
+            if (Player.HasBuff(ModContent.BuffType<Fainted>()))
+            {
+                Player.velocity = Vector2.Zero;
+                Player.controlLeft = false;      // Stop moving left
+                Player.controlRight = false;     // Stop moving right
+                Player.controlUp = false;     // Stop jumping/up movement
+                Player.controlDown = false;      // Stop falling/down movement
+                Player.controlJump = false;      // Prevent jumping
+                Player.controlHook = false;      // Prevent grappling hook use
+                Player.controlMount = false;     // Prevent mount summoning/dismounting
+                Player.controlQuickHeal = false; // Prevent quick heal
+                Player.controlQuickMana = false; // Prevent quick mana
+                Player.controlSmart = false;     // Prevent smart cursor
+                Player.controlTorch = false;     // Prevent quick torch
+                Player.releaseJump = true;
+                Player.wingTime = 0;
+            }
+        }
+
+        public override bool CanUseItem(Item item)
+        {
+            if (Player.HasBuff(ModContent.BuffType<Fainted>())) return false;
+            return base.CanUseItem(item);
         }
 
         public override void PostUpdateBuffs()

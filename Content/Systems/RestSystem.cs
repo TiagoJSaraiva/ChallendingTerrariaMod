@@ -16,18 +16,18 @@ namespace ChallengingTerrariaMod.Content.Systems
         public const int REST_UPDATE_RATE = 60; // Atualiza a cada 60 ticks (1 segundo real)
 
         // Taxas de sono (já calculadas para "por segundo real")
-        private const float SLEEP_GAIN_PER_SECOND = 3f;   // 180 pontos / 60 segundos
-        private const float SLEEP_LOSS_PER_SECOND = 36f; // 180 pontos / 5 segundos (tempo acelerado)
+        private const float SLEEP_GAIN_PER_SECOND = 20f;   // 180 pontos / 60 segundos
+        private const float SLEEP_LOSS_PER_SECOND = 20f; // 180 pontos / 5 segundos (tempo acelerado)
 
-        // Horários do Terraria (em ticks, 1 minuto real = 3600 ticks do jogo)
-        // 7:30 PM (19:30): Início do ganho de sono
-        private const double START_SLEEP_GAIN_TIME = (19.5 * 3600); // 19h30 * 3600 ticks/hora
-        // 4:30 AM (4:30): Fim do ganho de sono
-        private const double END_SLEEP_GAIN_TIME = (4.5 * 3600);   // 4h30 * 3600 ticks/hora
+        private const float SLEEP_LOSS_PER_SECOND_ACCELERATED = 36f;
+
+        // Removeremos as constantes de horário específicas, pois não serão mais usadas para a lógica de ganho.
+        // private const double START_SLEEP_GAIN_TIME = 19.5; 
+        // private const double END_SLEEP_GAIN_TIME = 4.5; 
 
         // UI do sono
         public static UserInterface RestUserInterface;
-        public static RestMeterUI RestUIState; // Precisaremos criar esta classe
+        public static RestMeterUI RestUIState; 
 
         public override void Load()
         {
@@ -90,32 +90,23 @@ namespace ChallengingTerrariaMod.Content.Systems
                         RestPlayer restPlayer = player.GetModPlayer<RestPlayer>();
                         if (restPlayer == null) continue;
 
-                        // Lógica de ganho de sono
-                        double currentAbsoluteGameTimeInTicks = Main.time;
-                        if (!Main.dayTime)
+                        // Lógica de atualização do sono
+                        if (player.sleeping.isSleeping)
                         {
-                            currentAbsoluteGameTimeInTicks += Main.dayLength;
-                        }
-                        
-                        double currentHour = currentAbsoluteGameTimeInTicks / 3600.0;
-
-                        bool isSleepTime = false;
-                        if (currentHour >= 19.5 || currentHour < 4.5)
+                            if (Main.fastForwardTimeToDawn)
+                            {
+                                restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND_ACCELERATED;
+                            }
+                            else
+                            {
+                                restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND;   
+                            }
+                        } else if (!Main.dayTime) // AGORA VERIFICA APENAS SE É NOITE GERAL
                         {
-                            isSleepTime = true;
-                        }
-
-                        if (isSleepTime)
-                        {
+                            // Se NÃO estiver dormindo na cama E for noite (qualquer hora da noite), ele ganha sono.
                             restPlayer.CurrentRest += SLEEP_GAIN_PER_SECOND;
                         }
-
-                        // Lógica de perda de sono (dormir na cama)
-                        // CORREÇÃO: Usar player.sleeping.isSleeping
-                        if (player.sleeping.isSleeping) // Verifica proximidade da cama
-                        {
-                            restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND;
-                        }
+                        // Se não estiver dormindo na cama E for dia (Main.dayTime é true), o sono não muda.
                         
                         // Garante que o sono esteja dentro dos limites
                         restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, 0, 1000);
