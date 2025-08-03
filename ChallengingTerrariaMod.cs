@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
 using Terraria.ModLoader;
+using ChallengingTerrariaMod.Content.Systems.Projectiles;
 
-namespace ChallengingTerrariaModMod
+namespace ChallengingTerrariaMod
 {
-	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
-	public class ChallengingTerrariaModMod : Mod
-	{
-		
-	}
+    public class ChallengingTerrariaMod : Mod
+    {
+        public static int FaintedVFXType;
+
+        public override void Load()
+        {
+  
+        }
+    }
 }

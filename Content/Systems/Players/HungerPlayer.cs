@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using ChallengingTerrariaMod.Content.Systems;
+using ChallengingTerrariaMod.Content.Systems.Players;
 using Terraria.ID;
 using ChallengingTerrariaMod.Content.Buffs;
 using Terraria.DataStructures;
@@ -73,7 +73,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
             if (item.consumable && isFoodBuffItem)
             {
-                if (Player.HasBuff(ModContent.BuffType<Nauseous>()))
+                if (Player.HasBuff(ModContent.BuffType<Nauseous>()) || Player.HasBuff(ModContent.BuffType<Fainted>()))
                 {
                     return false; // Não pode usar NENHUMA comida se nauseado
                 }

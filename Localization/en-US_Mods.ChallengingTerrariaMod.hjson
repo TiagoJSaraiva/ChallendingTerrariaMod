@@ -173,3 +173,5 @@ od: {
 		}
 	}
 }
+
+Projectiles.FaintedVFX.DisplayName: Fainted V F X
