@@ -16,8 +16,8 @@ namespace ChallengingTerrariaMod.Content.Systems
         public const int REST_UPDATE_RATE = 60; // Atualiza a cada 60 ticks (1 segundo real)
 
         // Taxas de sono (já calculadas para "por segundo real")
-        private const float SLEEP_GAIN_PER_SECOND = 20f;   // 180 pontos / 60 segundos
-        private const float SLEEP_LOSS_PER_SECOND = 20f; // 180 pontos / 5 segundos (tempo acelerado)
+        private const float SLEEP_GAIN_PER_SECOND = 3;   // 180 pontos / 60 segundos
+        private const float SLEEP_LOSS_PER_SECOND = 3; // 180 pontos / 5 segundos (tempo acelerado)
 
         private const float SLEEP_LOSS_PER_SECOND_ACCELERATED = 36f;
 
@@ -93,7 +93,7 @@ namespace ChallengingTerrariaMod.Content.Systems
                         // Lógica de atualização do sono
                         if (player.sleeping.isSleeping)
                         {
-                            if (Main.fastForwardTimeToDawn)
+                            if (Main.dayRate > 1)
                             {
                                 restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND_ACCELERATED;
                             }

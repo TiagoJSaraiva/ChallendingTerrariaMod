@@ -75,22 +75,22 @@ Buffs: {
 	}
 
 	Tired: {
-		Description: Mods.ChallengingTerrariaMod.Buffs.Tired.Description
+		Description: You are tired and can't focus. Magic and Ranged damage slightly reduced. Mana regen reduced.
 		DisplayName: Tired
 	}
 
 	Sleepy: {
-		Description: Mods.ChallengingTerrariaMod.Buffs.Sleepy.Description
+		Description: You are starting to feel sleepy and your mind isn't working properly. Magic and ranged damage reduced greately.
 		DisplayName: Sleepy
 	}
 
 	Fainted: {
-		Description: Mods.ChallengingTerrariaMod.Buffs.Fainted.Description
+		Description: You fainted.
 		DisplayName: Fainted
 	}
 
 	Exhausted: {
-		Description: Mods.ChallengingTerrariaMod.Buffs.Exhausted.Description
+		Description: You are extremely exhausted. Magic and ranged damage severely reduced and mana regen is stopped. Your body don't obey you anymore.
 		DisplayName: Exhausted
 	}
 }

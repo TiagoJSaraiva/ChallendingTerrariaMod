@@ -135,6 +135,11 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         private void ApplyRestDebuffs()
         {
+            if (Player.HasBuff(ModContent.BuffType<Exhausted>()) && Main.rand.NextFloat() < 0.2f && !Player.HasBuff(BuffID.Confused))
+            {
+                Player.AddBuff(BuffID.Confused, 3 * 60);
+            }
+            
             Player.ClearBuff(ModContent.BuffType<Tired>());
             Player.ClearBuff(ModContent.BuffType<Sleepy>());
             Player.ClearBuff(ModContent.BuffType<Exhausted>());
@@ -152,19 +157,15 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             }
             else if (CurrentRest >= 801)
             {
-                Player.AddBuff(ModContent.BuffType<Exhausted>(), 60);
-                if (Main.rand.NextFloat() < 0.10f && !Player.HasBuff(BuffID.Confused))
-                {
-                    Player.AddBuff(BuffID.Confused, 10 * 60);
-                }
+                Player.AddBuff(ModContent.BuffType<Exhausted>(), 61);
             }
             else if (CurrentRest >= 501)
             {
-                Player.AddBuff(ModContent.BuffType<Sleepy>(), 60);
+                Player.AddBuff(ModContent.BuffType<Sleepy>(), 61);
             }
             else if (CurrentRest >= 201)
             {
-                Player.AddBuff(ModContent.BuffType<Tired>(), 60);
+                Player.AddBuff(ModContent.BuffType<Tired>(), 61);
             }
         }
     }
