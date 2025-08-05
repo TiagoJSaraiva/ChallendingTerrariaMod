@@ -17,7 +17,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
         private UIImage hungerMeterImage; // A imagem que mostra o preenchimento da fome
 
         private Asset<Texture2D>[] hungerFillTextures;
-        private const int TotalSprites = 59; // De 0 a 58 (HungerFill(0) a HungerFill(58))
+        private const int TotalSprites = 14; // De 0 a 58 (HungerFill(0) a HungerFill(58))
 
         public override void OnInitialize()
         {
@@ -61,34 +61,36 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             }
         }
         private int GetSpriteIndex(float hungerValue)
-{
-    // Define o sprite base para o estado "normal" (1100 de fome)
-    const int NormalHungerSpriteIndex = 55; 
-    const float BaseHungerValue = HungerSystem.MaxHungerNormal; 
+        {
+            // Define o sprite base para o estado "normal" (1100 de fome)
+            const int NormalHungerSpriteIndex = 11; 
+            const float BaseHungerValue = HungerSystem.MaxHungerNormal; 
 
-    int calculatedSpriteIndex;
+            int calculatedSpriteIndex;
 
-    if (hungerValue > BaseHungerValue)
-    {
-        // Calcula quantos pontos de fome estão acima do normal
-        float hungerAboveNormal = hungerValue - BaseHungerValue;
-        // Cada 100 pontos acima de BaseHungerValue incrementa 1 sprite
-        int spritesIncrement = (int)Math.Floor(hungerAboveNormal / 100f);
+            if (hungerValue > BaseHungerValue)
+            {
+                // Calcula quantos pontos de fome estão acima do normal
+                float hungerAboveNormal = hungerValue - BaseHungerValue;
+                // Cada 100 pontos acima de BaseHungerValue incrementa 1 sprite
+                int spritesIncrement = (int)Math.Floor(hungerAboveNormal / 100f);
 
-        calculatedSpriteIndex = NormalHungerSpriteIndex + spritesIncrement;
-    }
-    // Lógica para valores ABAIXO de MaxHungerNormal (1100)
-    else 
-    {
-        // Calcula quantos pontos de fome estão abaixo do normal
-        float hungerBelowNormal = BaseHungerValue - hungerValue;
-        // Cada 20 pontos abaixo de BaseHungerValue decrementa 1 sprite
-        int spritesDecrement = (int)Math.Floor(hungerBelowNormal / 20f);
+                calculatedSpriteIndex = NormalHungerSpriteIndex + spritesIncrement;
+            }
+            // Lógica para valores ABAIXO de MaxHungerNormal (1100)
+            else 
+            {
+                // Calcula quantos pontos de fome estão abaixo do normal
+                float hungerBelowNormal = BaseHungerValue - hungerValue;
+                int spritesDecrement;
+                // Cada 20 pontos abaixo de BaseHungerValue decrementa 1 sprite
+                
+                spritesDecrement = (int)Math.Floor(hungerBelowNormal / 92f);
+            
+                calculatedSpriteIndex = NormalHungerSpriteIndex - spritesDecrement;
+            }
 
-        calculatedSpriteIndex = NormalHungerSpriteIndex - spritesDecrement;
-    }
-
-    return Utils.Clamp(calculatedSpriteIndex, 0, TotalSprites - 1);
-}
+            return Utils.Clamp(calculatedSpriteIndex, 0, TotalSprites - 1);
+        }
     }
 }

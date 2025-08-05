@@ -17,7 +17,7 @@ namespace ChallengingTerrariaMod.Content.Systems
         public HungerBarUI HungerBar;
 
         // Constantes do sistema de fome 
-        public const float MaxHungerNormal = 1100f; // Valor da fome considerado "cheio" (sem debuffs/buffs de fome/saciedade)
+        public const float MaxHungerNormal = 1104f; // Valor da fome considerado "cheio" (sem debuffs/buffs de fome/saciedade)
         public const float AbsoluteMaxHunger = 1500f; // Valor máximo que a fome pode atingir (acima disso, vomita)
 
         // Thresholds para os debuffs de saciedade

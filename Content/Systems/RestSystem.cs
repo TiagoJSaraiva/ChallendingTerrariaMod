@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.UI;
 using Terraria.Localization;
-using ChallengingTerrariaMod.Content.Systems.UI; 
+using ChallengingTerrariaMod.Content.Systems.UI;
 using System;
 
 namespace ChallengingTerrariaMod.Content.Systems
