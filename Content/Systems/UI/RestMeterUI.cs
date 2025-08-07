@@ -19,7 +19,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 private UIImage _restMeterImage;
 
                 private Asset<Texture2D>[] _restMeterSprites;
-                private const int TotalSprites = 50;
+                private const int TotalSprites = 12;
 
                 public override void OnInitialize()
                 {
@@ -61,16 +61,11 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 {
                         base.Update(gameTime);
 
-                        if (Main.LocalPlayer.dead || Main.LocalPlayer.ghost)
-                                return;
-
+                        if (Main.LocalPlayer.dead || Main.LocalPlayer.ghost) return;
                         RestPlayer restPlayer = Main.LocalPlayer.GetModPlayer<RestPlayer>();
-                        if (restPlayer == null)
-                        {
-                                return;
-                        }
-
-                        int spriteIndex = (int)Math.Floor(restPlayer.CurrentRest / 20f);
+                        if (restPlayer == null) return;
+                        
+                        int spriteIndex = (int)Math.Floor(restPlayer.CurrentRest / 84f);
                         spriteIndex = Utils.Clamp(spriteIndex, 0, TotalSprites - 1);
 
                         Texture2D newSpriteTexture = _restMeterSprites[spriteIndex].Value;

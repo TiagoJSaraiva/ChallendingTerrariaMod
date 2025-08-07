@@ -93,6 +93,11 @@ Buffs: {
 		Description: You are extremely exhausted. Magic and ranged damage severely reduced and mana regen is stopped. Your body don't obey you anymore.
 		DisplayName: Exhausted
 	}
+
+	SleepDeprived: {
+		DisplayName: Sleep Deprived
+		Description: Mods.ChallengingTerrariaMod.Buffs.SleepDeprived.Description
+	}
 }
 
 od: {

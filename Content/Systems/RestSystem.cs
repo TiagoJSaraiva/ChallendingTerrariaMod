@@ -15,11 +15,11 @@ namespace ChallengingTerrariaMod.Content.Systems
     {
         public const int REST_UPDATE_RATE = 60; // Atualiza a cada 60 ticks (1 segundo real)
 
-        // Taxas de sono (já calculadas para "por segundo real")
-        private const float SLEEP_GAIN_PER_SECOND = 3;   // 180 pontos / 60 segundos
-        private const float SLEEP_LOSS_PER_SECOND = 3; // 180 pontos / 5 segundos (tempo acelerado)
+        // Sleep gain and loss of the player
+        private const float SLEEP_GAIN_PER_SECOND = 3; // Tiredness gained per second at night while not sleeping
+        private const float SLEEP_LOSS_PER_SECOND = 3; // Tiredness loss per second when the time isn't accelerated (in case of there being more than one player in the same world, and only one of them sleeping)
 
-        private const float SLEEP_LOSS_PER_SECOND_ACCELERATED = 36f;
+        private const float SLEEP_LOSS_PER_SECOND_ACCELERATED = 36f; // Tiredness loss per second when the time is accelerated
 
         // Removeremos as constantes de horário específicas, pois não serão mais usadas para a lógica de ganho.
         // private const double START_SLEEP_GAIN_TIME = 19.5; 
@@ -93,13 +93,15 @@ namespace ChallengingTerrariaMod.Content.Systems
                         // Lógica de atualização do sono
                         if (player.sleeping.isSleeping)
                         {
+                            restPlayer.timeNoSleep -= 10;
+                            restPlayer.timeNoSleep = Utils.Clamp(restPlayer.timeNoSleep, 0, 0);
                             if (Main.dayRate > 1)
                             {
                                 restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND_ACCELERATED;
                             }
                             else
                             {
-                                restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND;   
+                                restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND;
                             }
                         } else if (!Main.dayTime) // AGORA VERIFICA APENAS SE É NOITE GERAL
                         {
@@ -109,7 +111,7 @@ namespace ChallengingTerrariaMod.Content.Systems
                         // Se não estiver dormindo na cama E for dia (Main.dayTime é true), o sono não muda.
                         
                         // Garante que o sono esteja dentro dos limites
-                        restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, 0, 1000);
+                        restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, 0, 1008);
                     }
                 }
             }

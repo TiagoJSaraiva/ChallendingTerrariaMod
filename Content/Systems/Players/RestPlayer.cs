@@ -16,6 +16,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
         public float CurrentRest;
         public bool isFainted = false;
         private int faintedTimer = 0;
+        public int timeNoSleep = 0;
 
         public override void Initialize()
         {
@@ -59,9 +60,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         public override void ResetEffects()
         {
-            Player.GetModPlayer<RestPlayer>().Player.statManaMax2 += 0;
-            Player.GetDamage(DamageClass.Magic) -= 0f;
-            Player.GetDamage(DamageClass.Ranged) -= 0f;
+
         }
 
         public override void PreUpdate()
@@ -75,7 +74,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                     {
                         isFainted = false;
                         faintedTimer = 0;
-                        CurrentRest = Utils.Clamp(CurrentRest - 180, 0, 1000);
+                        CurrentRest = Utils.Clamp(CurrentRest - 81, 0, 1000);
                         Player.ClearBuff(ModContent.BuffType<Fainted>());
                     }
                 }
@@ -111,6 +110,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             {
                 if (Player.active && !Player.dead && !Player.ghost && !isFainted)
                 {
+                    if(Main.GameUpdateCount % 60 == 0) timeNoSleep++;
                     ApplyRestDebuffs();
                 }
             }
@@ -135,11 +135,17 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         private void ApplyRestDebuffs()
         {
+            if (timeNoSleep == 1200)
+            {
+                Main.NewText("You haven't slept for a while. You're starting to feel the consequences", Color.DarkBlue);
+                Player.AddBuff(ModContent.BuffType<SleepDeprived>(), 180 * 60);
+                timeNoSleep = 0;
+            }
             if (Player.HasBuff(ModContent.BuffType<Exhausted>()) && Main.rand.NextFloat() < 0.2f && !Player.HasBuff(BuffID.Confused))
             {
                 Player.AddBuff(BuffID.Confused, 3 * 60);
             }
-            
+
             Player.ClearBuff(ModContent.BuffType<Tired>());
             Player.ClearBuff(ModContent.BuffType<Sleepy>());
             Player.ClearBuff(ModContent.BuffType<Exhausted>());
@@ -149,7 +155,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             {
                 if (!isFainted)
                 {
-                    CurrentRest = 1000;
+                    CurrentRest = 1008;
                     Player.AddBuff(ModContent.BuffType<Fainted>(), 10 * 60);
                     isFainted = true;
                     faintedTimer = 0;
