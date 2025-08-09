@@ -24,7 +24,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 public override void OnInitialize()
                 {
                         _area = new UIElement();
-                        int spriteWidth = 50;
+                        int spriteWidth = 30;
                         int spriteHeight = 51;
 
                         _area.Left.Set(1250f, 0f);
@@ -64,13 +64,36 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                         if (Main.LocalPlayer.dead || Main.LocalPlayer.ghost) return;
                         SanityPlayer sanityPlayer = Main.LocalPlayer.GetModPlayer<SanityPlayer>();
                         if (sanityPlayer == null) return;
-                        
+
                         int spriteIndex = (int)Math.Floor(sanityPlayer.CurrentSanity / 100f);
                         spriteIndex = Utils.Clamp(spriteIndex, 0, TotalSprites - 1);
 
                         Texture2D newSpriteTexture = _sanityMeterSprites[spriteIndex].Value;
 
                         _sanityMeterImage.SetImage(newSpriteTexture);
+
+                        if (_area.IsMouseHovering)
+                        {
+
+                                if (sanityPlayer.CurrentSanity <= sanityPlayer.terrifiedThreshold)
+                                {
+                                        Main.instance.MouseText("Sanity meter\nYou're terrified");
+                                }
+                                else if (sanityPlayer.CurrentSanity <= sanityPlayer.frightenedThreshold)
+                                {
+                                        Main.instance.MouseText("Sanity meter\nYou're frightened");
+                                }
+                                else if (sanityPlayer.CurrentSanity <= sanityPlayer.stressedThreshold)
+                                {
+                                        Main.instance.MouseText("Sanity meter\nYou're stressed");
+                                }
+                                else 
+                                {
+                                        Main.instance.MouseText("Sanity meter\nYou're well");
+                                }
+                              
+                        }
+                        
                 }
         }
 }

@@ -11,12 +11,9 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Exhausted");
-            // Description.SetDefault("You are extremely exhausted. Magic and ranged damage severely reduced and mana regen is stopped. Your body don't obey you anymore.");
-
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
 

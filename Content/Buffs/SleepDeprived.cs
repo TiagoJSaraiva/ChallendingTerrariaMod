@@ -9,13 +9,8 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Nauseous");
-            // Description.SetDefault("You feel extremely nauseous. Armor is heavily reduced, and life/mana regeneration is halted. You cannot eat.");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = false;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

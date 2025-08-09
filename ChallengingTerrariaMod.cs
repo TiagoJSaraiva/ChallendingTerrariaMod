@@ -5,11 +5,9 @@ namespace ChallengingTerrariaMod
 {
     public class ChallengingTerrariaMod : Mod
     {
-        public static int FaintedVFXType;
-
         public override void Load()
         {
-  
+
         }
     }
 }

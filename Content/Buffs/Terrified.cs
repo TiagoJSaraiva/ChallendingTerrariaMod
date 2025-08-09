@@ -1,10 +1,11 @@
-﻿using Terraria;
+// ChallengingTerrariaMod/Content/Buffs/Stuffed.cs
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
-    public class Cold : ModBuff
+    public class Terrified : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -16,7 +17,8 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.pickSpeed += 0.10f; // -10% mining speed (maior valor = mais lento)
+            player.GetDamage(DamageClass.Generic) -= 0.35f; // 30% reduction in player damage
+            player.GetCritChance(DamageClass.Generic) -= 0.20f; // 20% reduction in player critchance
         }
     }
 }

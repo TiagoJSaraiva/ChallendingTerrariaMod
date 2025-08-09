@@ -12,13 +12,8 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Throwing Up");
-            // Description.SetDefault("You are violently throwing up.");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
-            // Main.persistentBuff[Type] = false; // Default para buffs que não são salvos
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

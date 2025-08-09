@@ -8,14 +8,11 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Hot");
-            // Description.SetDefault("-5 defense, -10% damage, and cannot regenerate life."); //
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
-
         public override void Update(Player player, ref int buffIndex)
         {
             player.statDefense -= 5; // -5 defense

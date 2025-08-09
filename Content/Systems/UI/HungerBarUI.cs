@@ -4,9 +4,8 @@ using Terraria.UI;
 using Microsoft.Xna.Framework; 
 using Microsoft.Xna.Framework.Graphics; 
 using Terraria.ModLoader;
-using System; 
-using ReLogic.Content; 
-
+using System;
+using ReLogic.Content;
 using ChallengingTerrariaMod.Content.Systems.Players;
 
 namespace ChallengingTerrariaMod.Content.Systems.UI
@@ -17,16 +16,15 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
         private UIImage hungerMeterImage; // A imagem que mostra o preenchimento da fome
 
         private Asset<Texture2D>[] hungerFillTextures;
-        private const int TotalSprites = 14; // De 0 a 58 (HungerFill(0) a HungerFill(58))
+        private const int TotalSprites = 15; 
 
         public override void OnInitialize()
         {
             area = new UIElement();
-            int spriteSize = 50; 
             area.Left.Set(1200f, 0f);
             area.Top.Set(20f, 0f);
-            area.Width.Set(spriteSize, 0f);
-            area.Height.Set(spriteSize, 0f);
+            area.Width.Set(30, 0f);
+            area.Height.Set(50, 0f);
             Append(area);
 
             hungerFillTextures = new Asset<Texture2D>[TotalSprites];
@@ -40,24 +38,58 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             hungerMeterImage = new UIImage(hungerFillTextures[GetSpriteIndex(HungerSystem.MaxHungerNormal)]);
             hungerMeterImage.Left.Set(0, 0f);
             hungerMeterImage.Top.Set(0, 0f);
-            hungerMeterImage.Width.Set(spriteSize, 0f);
-            hungerMeterImage.Height.Set(spriteSize, 0f);
+            hungerMeterImage.Width.Set(30, 0f);
+            hungerMeterImage.Height.Set(50, 0f);
             area.Append(hungerMeterImage);
         }
 
         // Este método é chamado a cada frame do jogo para atualizar a UI
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime); 
+            base.Update(gameTime);
+            HungerPlayer hungerPlayer = Main.LocalPlayer.GetModPlayer<HungerPlayer>();
 
             if (Main.LocalPlayer != null && Main.LocalPlayer.active && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
             {
-                HungerPlayer modPlayer = Main.LocalPlayer.GetModPlayer<HungerPlayer>();
-                float currentHunger = modPlayer.CurrentHunger;
-
-                int newSpriteIndex = GetSpriteIndex(currentHunger);
+                int newSpriteIndex = GetSpriteIndex(hungerPlayer.CurrentHunger);
 
                 hungerMeterImage.SetImage(hungerFillTextures[newSpriteIndex]);
+            }
+            
+            if (area.IsMouseHovering)
+            {
+                if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Bloated)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're bloated");
+                }
+                else if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Stuffed)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're stuffed");
+                }
+                else if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Full)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're full");
+                }
+                else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Starved)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're starving");
+                }
+                else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Famished)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're famished");
+                }
+                else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Hungry)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're hungry");
+                }
+                else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Peckish)
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're peckish");
+                }
+                else
+                {
+                    Main.instance.MouseText("Hunger Meter\nYou're well fed");
+                }
             }
         }
         private int GetSpriteIndex(float hungerValue)
@@ -85,7 +117,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 int spritesDecrement;
                 // Cada 20 pontos abaixo de BaseHungerValue decrementa 1 sprite
                 
-                spritesDecrement = (int)Math.Floor(hungerBelowNormal / 92f);
+                spritesDecrement = (int)Math.Floor(hungerBelowNormal / 100f);
             
                 calculatedSpriteIndex = NormalHungerSpriteIndex - spritesDecrement;
             }

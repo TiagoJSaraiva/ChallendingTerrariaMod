@@ -10,11 +10,9 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Freezing");
-            // Description.SetDefault("-30% mining speed, -10 hp/s, Chilled permanent, 5% chance to gain Frozen debuff every 60 ticks.");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
 

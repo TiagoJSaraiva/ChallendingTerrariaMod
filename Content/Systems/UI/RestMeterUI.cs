@@ -24,8 +24,8 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 public override void OnInitialize()
                 {
                         _area = new UIElement();
-                        int spriteWidth = 30;
-                        int spriteHeight = 50;
+                        const int spriteWidth = 30;
+                        const int spriteHeight = 50;
 
                         _area.Left.Set(1150f, 0f);
                         _area.Top.Set(20f, 0f);
@@ -64,13 +64,35 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                         if (Main.LocalPlayer.dead || Main.LocalPlayer.ghost) return;
                         RestPlayer restPlayer = Main.LocalPlayer.GetModPlayer<RestPlayer>();
                         if (restPlayer == null) return;
-                        
-                        int spriteIndex = (int)Math.Floor(restPlayer.CurrentRest / 84f);
+
+                        int spriteIndex = (int)Math.Floor(restPlayer.CurrentRest / 100);
                         spriteIndex = Utils.Clamp(spriteIndex, 0, TotalSprites - 1);
 
                         Texture2D newSpriteTexture = _restMeterSprites[spriteIndex].Value;
 
                         _restMeterImage.SetImage(newSpriteTexture);
+                        
+                        if (_area.IsMouseHovering)
+                        {
+
+                                if (restPlayer.CurrentRest <= restPlayer.exhaustedThreshold)
+                                {
+                                        Main.instance.MouseText("Rest Meter\nYou're exhausted");
+                                }
+                                else if (restPlayer.CurrentRest <= restPlayer.sleepyThreshold)
+                                {
+                                        Main.instance.MouseText("Rest Meter\nYou're sleepy");
+                                }
+                                else if (restPlayer.CurrentRest <= restPlayer.tiredThreshold)
+                                {
+                                        Main.instance.MouseText("Rest Meter\nYou're tired");
+                                }
+                                else 
+                                {
+                                        Main.instance.MouseText("Rest Meter\nYou're rested");
+                                }
+                              
+                        }
                 }
         }
 }

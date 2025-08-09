@@ -9,10 +9,7 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Full");
-            // Description.SetDefault("Feeling full. Slightly reduces movement speed, jump height, and flight time.");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

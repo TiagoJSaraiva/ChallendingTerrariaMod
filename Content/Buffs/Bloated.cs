@@ -9,10 +9,7 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Bloated");
-            // Description.SetDefault("Excessively full!");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

@@ -10,11 +10,8 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Starved");
-            // Description.SetDefault("You're starving to death! You cannot use tools or weapons, cannot fly, and rapidly lose life.");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
+            Main.buffNoSave[Type] = false;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }

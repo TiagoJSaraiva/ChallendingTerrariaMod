@@ -8,14 +8,9 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Chilled");
-            // Description.SetDefault("-15% mining speed, -1 hp/s, 30% chance to gain Chilled debuff (30s) every 60 ticks."); //
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            // Para o debuff 'Chilled' que você pode contrair, talvez não use buffNoTimeDisplay,
-            // mas para o buff principal que mantém o efeito, pode usar.
-            // Vou manter buffNoTimeDisplay para os buffs principais do sistema de temperatura.
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
 

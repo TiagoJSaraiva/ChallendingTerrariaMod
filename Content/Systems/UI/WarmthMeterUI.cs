@@ -55,6 +55,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            WarmthPlayer warmthPlayer = Main.LocalPlayer.GetModPlayer<WarmthPlayer>();
 
             if (warmthMeterImage == null) return;
 
@@ -64,7 +65,6 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             {
                 _updateSpriteTickCounter = 0; // Reseta o contador para começar a contagem de 60 ticks
 
-                WarmthPlayer warmthPlayer = Main.LocalPlayer.GetModPlayer<WarmthPlayer>();
                 int currentTemperature = warmthPlayer.CurrentTemperature;
                 int lastTemperatureChange = warmthPlayer.LastTemperatureChange;
 
@@ -77,7 +77,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 else
                 {
                     int steps = (int)Math.Floor(Math.Abs(currentTemperature - WarmthSystem.ComfortableTemperature) / (double)TemperatureInterval);
-                    
+
                     steps = Math.Max(1, steps);
 
                     int calculatedSpriteIndex;
@@ -90,7 +90,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                     {
                         calculatedSpriteIndex = 19 + (steps - 1);
                     }
-                    
+
                     calculatedSpriteIndex = Math.Clamp(calculatedSpriteIndex, 1, MaxPairedSprites);
 
                     if (lastTemperatureChange > 0)
@@ -114,6 +114,38 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                     }
                 }
                 warmthMeterImage.SetImage(newTextureAsset.Value);
+            }
+            
+            if (warmthMeterImage.IsMouseHovering)
+            {
+                if (warmthPlayer.CurrentTemperature <= 200)
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're freezing");
+                }
+                else if (warmthPlayer.CurrentTemperature <= 500)
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're very cold");
+                }
+                else if (warmthPlayer.CurrentTemperature <= 800)
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're feeling cold");
+                }
+                else if (warmthPlayer.CurrentTemperature >= 1800)
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're scorching");
+                }
+                else if (warmthPlayer.CurrentTemperature >= 1500)
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're hot");
+                }
+                else if (warmthPlayer.CurrentTemperature >= 1200)
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're warm");
+                }
+                else
+                {
+                    Main.instance.MouseText("Warmth Meter\nYou're confortable");
+                }
             }
         }
     }

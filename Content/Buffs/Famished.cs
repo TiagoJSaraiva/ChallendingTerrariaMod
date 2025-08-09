@@ -10,10 +10,7 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Famished");
-            // Description.SetDefault("You're starving! Significant reduction to mining speed, damage, and critical strike chance. You take damage over time and cannot naturally regenerate life.");
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;

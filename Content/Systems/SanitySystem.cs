@@ -13,9 +13,7 @@ namespace ChallengingTerrariaMod.Content.Systems
 {
     public class SanitySystem : ModSystem
     {
-        public const int maxSanity = 1200;
-        public int sanityGainPerSecond = 4;
-        public int sanityLossPerSecond = 12;
+        public const float maxSanity = 1200;
 
         // UI do sono
         public static UserInterface SanityUserInterface;
@@ -70,6 +68,26 @@ namespace ChallengingTerrariaMod.Content.Systems
             }
         }
 
+        public override void ModifyLightingBrightness(ref float scale)
+        {
+            if (Main.LocalPlayer != null && !Main.LocalPlayer.dead && !Main.LocalPlayer.ghost)
+            {
+                var sanityPlayer = Main.LocalPlayer.GetModPlayer<SanityPlayer>();
+                if (sanityPlayer.CurrentSanity <= 0)
+                {
+                    scale = 0.75f;
+                }
+                else if (sanityPlayer.CurrentSanity <= 300)
+                {
+                    scale = 0.85f;
+                }
+                else if (sanityPlayer.CurrentSanity <= 600)
+                {
+                    scale = 0.90f;
+                }
+            }
+        }
+
         public override void PostUpdatePlayers()
         {
             // A lógica de atualização do sono só acontece a cada segundo (60 ticks)
@@ -84,22 +102,20 @@ namespace ChallengingTerrariaMod.Content.Systems
 
                         // Sanity logic
 
-                        if (player.ZoneDungeon || player.ZoneUnderworldHeight || player.ZoneCrimson || player.ZoneCorrupt)
+                        if (player.ZoneDungeon || player.ZoneUnderworldHeight || player.ZoneCrimson || player.ZoneCorrupt) // If the player is in Dungeon, Underworld or corruption/crimson, he loses sanity
                         {
-                            sanityPlayer.CurrentSanity -= 6;
-                        }
-                        else if (player.townNPCs > 2)
+                            sanityPlayer.CurrentSanity -= 7.5f;
+                        } 
+                        if (player.townNPCs > 2) // If the player is in a town, he gains sanity.
                         {
-                            sanityPlayer.CurrentSanity += 12;
+                            sanityPlayer.CurrentSanity += 9;
                         }
-                        else
+                        if (player.statLife <= (player.statLifeMax / 2)) // If player has less than half of his max health, he loses sanity.
                         {
-                            if (sanityPlayer.CurrentSanity < maxSanity)
-                            {
-                                sanityPlayer.CurrentSanity += 3;
-                            }
+                            sanityPlayer.CurrentSanity -= 9; 
                         }
-                        
+                        sanityPlayer.CurrentSanity += 3; // This is the normalization factor. It raises the sanity if the player is not under danger.
+
                         sanityPlayer.CurrentSanity = Utils.Clamp(sanityPlayer.CurrentSanity, 0, 1200);
                     }
                 }

@@ -103,15 +103,15 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             Player.ClearBuff(ModContent.BuffType<VeryCold>());
             Player.ClearBuff(ModContent.BuffType<Cold>());
 
-            if (CurrentTemperature <= 199) // 0 até 199: Freezing
+            if (CurrentTemperature <= 200) // 0 até 199: Freezing
             {
                 Player.AddBuff(ModContent.BuffType<Freezing>(), 60);
             }
-            else if (CurrentTemperature <= 499) // 200 até 499: Chilled
+            else if (CurrentTemperature <= 500) // 200 até 499: Chilled
             {
                 Player.AddBuff(ModContent.BuffType<VeryCold>(), 60);
             }
-            else if (CurrentTemperature <= 799) // 500 até 799: Cold
+            else if (CurrentTemperature <= 800) // 500 até 799: Cold
             {
                 Player.AddBuff(ModContent.BuffType<Cold>(), 60);
             }

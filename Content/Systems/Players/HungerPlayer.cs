@@ -28,7 +28,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 // Lógica de Vômito (saciedade extrema)
                 if (CurrentHunger >= HungerSystem.AbsoluteMaxHunger)
                 {
-                    CurrentHunger = 300;
+                    CurrentHunger = RespawnHungerValue;
                     Player.AddBuff(ModContent.BuffType<Nauseous>(), 3 * 10 * 60);
                     Player.AddBuff(ModContent.BuffType<ThrowingUp>(), 2 * 60);
 
@@ -62,7 +62,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         public override void OnRespawn()
         {
-            CurrentHunger = Utils.Clamp(RespawnHungerValue, 0, HungerSystem.AbsoluteMaxHunger);
+            CurrentHunger = RespawnHungerValue;
         }
 
         public override bool CanUseItem(Item item)
@@ -75,17 +75,14 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             {
                 if (Player.HasBuff(ModContent.BuffType<Nauseous>()) || Player.HasBuff(ModContent.BuffType<Fainted>()))
                 {
-                    return false; // Não pode usar NENHUMA comida se nauseado
+                    return false; 
                 }
                 foodItemConsumedThisTick = true;
                 return true; 
             }
 
-            // Verifica se o jogador tem o debuff Starved
             if (Player.HasBuff(ModContent.BuffType<Starved>()))
             {
-                // Se o item é uma FERRAMENTA ou ARMA, proíbe o uso.
-                // Itens de comida já foram tratados acima e retornariam 'true'.
                 if (item.damage > 0 || item.pick > 0 || item.axe > 0 || item.hammer > 0)
                 {
                     return false; 
@@ -94,18 +91,15 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             return base.CanUseItem(item);
         }
 
-        // Este método é chamado APÓS todos os buffs terem sido atualizados e aplicados.
         public override void PostUpdateBuffs()
         {
-            // Verifica se um item de comida foi consumido neste tick
             if (foodItemConsumedThisTick)
             {
-                // Reset a flag imediatamente para evitar que a lógica se repita
+
                 foodItemConsumedThisTick = false;
 
                 int hungerRestored = 0;
 
-                // Verifica qual buff de comida o jogador TEM e adiciona a saciedade baseada nele.
                 if (Player.HasBuff(BuffID.WellFed3) && Player.buffTime[Player.FindBuffIndex(BuffID.WellFed3)] > 1) // >1 para evitar buffs recém removidos
                 {
                     hungerRestored = 350;
@@ -119,14 +113,12 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                     hungerRestored = 50;
                 }
 
-                // Se algum buff de comida foi detectado e fome a ser restaurada.
                 if (hungerRestored > 0)
                 {
                     CurrentHunger += hungerRestored;
                     CurrentHunger = Utils.Clamp(CurrentHunger, 0, HungerSystem.AbsoluteMaxHunger);
 
-                    // Lógica para reduzir o tempo de duração do buff de comida
-                    if (CurrentHunger < 839) //839 is the peckish threshold
+                    if (CurrentHunger < HungerSystem.HungerDebuffThreshold_Peckish)
                     {
                         for (int i = 0; i < Player.buffType.Length; i++)
                         {
@@ -135,7 +127,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                                 buffType == BuffID.WellFed2 ||
                                 buffType == BuffID.WellFed3)
                             {
-                                Player.buffTime[i] = 10 * 60; // 20 segundos
+                                Player.buffTime[i] = 10 * 60;
                             }
                         }
                     }
@@ -148,86 +140,41 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
         {
             int buffDuration = 120; 
 
-            // Seu código de aplicação de debuffs de saciedadde
+            Player.ClearBuff(ModContent.BuffType<Stuffed>());
+            Player.ClearBuff(ModContent.BuffType<Full>());
+            Player.ClearBuff(ModContent.BuffType<Peckish>());
+            Player.ClearBuff(ModContent.BuffType<Hungry>());
+            Player.ClearBuff(ModContent.BuffType<Famished>());
+            Player.ClearBuff(ModContent.BuffType<Starved>());
+
             if (CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Bloated)
             {
                 Player.AddBuff(ModContent.BuffType<Bloated>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Starved>());
             }
             else if (CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Stuffed)
             {
                 Player.AddBuff(ModContent.BuffType<Stuffed>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Starved>());
             }
             else if (CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Full)
             {
                 Player.AddBuff(ModContent.BuffType<Full>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Starved>());
-            }
-            else if (CurrentHunger >= HungerSystem.HungerDebuffThreshold_Peckish + 1)
-            {
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Starved>());
+
             }
             else if (CurrentHunger <= HungerSystem.HungerDebuffThreshold_Starved)
             {
                 Player.AddBuff(ModContent.BuffType<Starved>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
             }
             else if (CurrentHunger <= HungerSystem.HungerDebuffThreshold_Famished)
             {
                 Player.AddBuff(ModContent.BuffType<Famished>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Starved>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
             }
             else if (CurrentHunger <= HungerSystem.HungerDebuffThreshold_Hungry)
             {
                 Player.AddBuff(ModContent.BuffType<Hungry>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Starved>());
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Peckish>());
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
             }
             else if (CurrentHunger <= HungerSystem.HungerDebuffThreshold_Peckish)
             {
                 Player.AddBuff(ModContent.BuffType<Peckish>(), buffDuration);
-                Player.ClearBuff(ModContent.BuffType<Starved>());
-                Player.ClearBuff(ModContent.BuffType<Famished>());
-                Player.ClearBuff(ModContent.BuffType<Hungry>());
-                Player.ClearBuff(ModContent.BuffType<Bloated>());
-                Player.ClearBuff(ModContent.BuffType<Stuffed>());
-                Player.ClearBuff(ModContent.BuffType<Full>());
             }
         }
 

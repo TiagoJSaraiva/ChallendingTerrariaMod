@@ -13,13 +13,15 @@ namespace ChallengingTerrariaMod.Content.Systems
 {
     public class RestSystem : ModSystem
     {
-        public const int REST_UPDATE_RATE = 60; // Atualiza a cada 60 ticks (1 segundo real)
+        public const int restUpdateRate = 60; // Atualiza a cada 60 ticks (1 segundo real)
 
         // Sleep gain and loss of the player
-        private const float SLEEP_GAIN_PER_SECOND = 3; // Tiredness gained per second at night while not sleeping
-        private const float SLEEP_LOSS_PER_SECOND = 3; // Tiredness loss per second when the time isn't accelerated (in case of there being more than one player in the same world, and only one of them sleeping)
+        private const int sleepPerSecond = 3;
 
-        private const float SLEEP_LOSS_PER_SECOND_ACCELERATED = 36f; // Tiredness loss per second when the time is accelerated
+        private const int sleepPerSecondAccelerated = 24; // Tiredness loss per second when the time is accelerated
+
+        public const short maxSleep = 1200;
+        public const int minSleep = 0;
 
         // Removeremos as constantes de horário específicas, pois não serão mais usadas para a lógica de ganho.
         // private const double START_SLEEP_GAIN_TIME = 19.5; 
@@ -81,7 +83,7 @@ namespace ChallengingTerrariaMod.Content.Systems
         public override void PostUpdatePlayers()
         {
             // A lógica de atualização do sono só acontece a cada segundo (60 ticks)
-            if (Main.GameUpdateCount % REST_UPDATE_RATE == 0)
+            if (Main.GameUpdateCount % restUpdateRate == 0)
             {
                 foreach (Player player in Main.player)
                 {
@@ -94,24 +96,24 @@ namespace ChallengingTerrariaMod.Content.Systems
                         if (player.sleeping.isSleeping)
                         {
                             restPlayer.timeNoSleep -= 10;
-                            restPlayer.timeNoSleep = Utils.Clamp(restPlayer.timeNoSleep, 0, 0);
+                            restPlayer.timeNoSleep = Utils.Clamp(restPlayer.timeNoSleep, 0, 1200);
                             if (Main.dayRate > 1)
                             {
-                                restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND_ACCELERATED;
+                                restPlayer.CurrentRest += sleepPerSecondAccelerated;
                             }
                             else
                             {
-                                restPlayer.CurrentRest -= SLEEP_LOSS_PER_SECOND;
+                                restPlayer.CurrentRest += sleepPerSecond;
                             }
                         } else if (!Main.dayTime) // AGORA VERIFICA APENAS SE É NOITE GERAL
                         {
                             // Se NÃO estiver dormindo na cama E for noite (qualquer hora da noite), ele ganha sono.
-                            restPlayer.CurrentRest += SLEEP_GAIN_PER_SECOND;
+                            restPlayer.CurrentRest -= sleepPerSecond;
                         }
                         // Se não estiver dormindo na cama E for dia (Main.dayTime é true), o sono não muda.
                         
                         // Garante que o sono esteja dentro dos limites
-                        restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, 0, 1008);
+                        restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, minSleep, maxSleep);
                     }
                 }
             }

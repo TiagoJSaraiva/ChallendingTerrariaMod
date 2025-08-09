@@ -17,24 +17,24 @@ namespace ChallengingTerrariaMod.Content.Systems
         public HungerBarUI HungerBar;
 
         // Constantes do sistema de fome 
-        public const float MaxHungerNormal = 1104f; // Valor da fome considerado "cheio" (sem debuffs/buffs de fome/saciedade)
-        public const float AbsoluteMaxHunger = 1500f; // Valor máximo que a fome pode atingir (acima disso, vomita)
+        public const float MaxHungerNormal = 1200; // Valor da fome considerado "cheio" (sem debuffs/buffs de fome/saciedade)
+        public const float AbsoluteMaxHunger = 1500; // Valor máximo que a fome pode atingir (acima disso, vomita)
 
         // Thresholds para os debuffs de saciedade
-        public const float MaxHungerDebuffThreshold_Full = 1200f; // Limite para "Full"
-        public const float MaxHungerDebuffThreshold_Stuffed = 1300f; // Limite para "Stuffed"
-        public const float MaxHungerDebuffThreshold_Bloated = 1400f; // Limite para "Bloated"
+        public const float MaxHungerDebuffThreshold_Full = 1300; // Limite para "Full"
+        public const float MaxHungerDebuffThreshold_Stuffed = 1400; // Limite para "Stuffed"
+        public const float MaxHungerDebuffThreshold_Bloated = 1500; // Limite para "Bloated"
 
         // Thresholds para os debuffs de fome
-        public const float HungerDebuffThreshold_Peckish = 838f; // Limite para "Peckish"
-        public const float HungerDebuffThreshold_Hungry = 558f; // Limite para "Hungry"
-        public const float HungerDebuffThreshold_Famished = 218f; // Limite para "Famished"
-        public const float HungerDebuffThreshold_Starved = 0f; // Limite para "Starved"
+        public const float HungerDebuffThreshold_Peckish = 900; // Limite para "Peckish"
+        public const float HungerDebuffThreshold_Hungry = 600; // Limite para "Hungry"
+        public const float HungerDebuffThreshold_Famished = 300; // Limite para "Famished"
+        public const float HungerDebuffThreshold_Starved = 0; // Limite para "Starved"
 
         // Taxas de decremento de fome 
         public const int HungerTickRate = 60; // Frequência de decremento (60 ticks = 1 segundo)
         public const float HungerDecrementIdle = 1f; // Fome perdida por tick (parado)
-        public const float HungerDecrementMoving = 3f; // Fome adicional perdida por tick (em movimento)
+        public const float HungerDecrementMoving = 2f; // Fome adicional perdida por tick (em movimento)
 
         public override void Load()
         {

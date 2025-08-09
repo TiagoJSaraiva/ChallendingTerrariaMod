@@ -3,6 +3,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ID;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
@@ -10,13 +11,10 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            // DisplayName.SetDefault("Sleepy");
-            // Description.SetDefault("You are starting to feel sleepy and your mind isn't working properly. Magic and ranged damage reduced greatly. Mana regen reduced.");
-
             Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
             Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = false;
+            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
+            Main.buffNoTimeDisplay[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

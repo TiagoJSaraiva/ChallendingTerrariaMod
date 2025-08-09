@@ -98,6 +98,26 @@ Buffs: {
 		DisplayName: Sleep Deprived
 		Description: Mods.ChallengingTerrariaMod.Buffs.SleepDeprived.Description
 	}
+
+	Frightened: {
+		DisplayName: Frightened
+		Description: Mods.ChallengingTerrariaMod.Buffs.Frightened.Description
+	}
+
+	Stressed: {
+		DisplayName: Stressed
+		Description: Mods.ChallengingTerrariaMod.Buffs.Stressed.Description
+	}
+
+	Terrified: {
+		DisplayName: Terrified
+		Description: Mods.ChallengingTerrariaMod.Buffs.Terrified.Description
+	}
+
+	Flee: {
+		DisplayName: Flee
+		Description: Mods.ChallengingTerrariaMod.Buffs.Flee.Description
+	}
 }
 
 od: {
