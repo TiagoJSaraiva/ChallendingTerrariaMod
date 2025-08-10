@@ -21,7 +21,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
         private int counter = 10;
 
         public int stressedThreshold = 900;
-        public int frightenedThreshold = 600;
+        public int scaredThreshold = 600;
         public int terrifiedThreshold = 300;
 
         public int _HitDirection;
@@ -100,7 +100,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
         private void ApplySanityDebuffs()
         {
             Player.ClearBuff(ModContent.BuffType<Terrified>());
-            Player.ClearBuff(ModContent.BuffType<Frightened>());
+            Player.ClearBuff(ModContent.BuffType<Scared>());
             Player.ClearBuff(ModContent.BuffType<Stressed>());
 
             if (CurrentSanity <= 0)
@@ -118,9 +118,9 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 gloomActive = false;
                 Player.AddBuff(ModContent.BuffType<Terrified>(), 61);
             }
-            else if (CurrentSanity <= frightenedThreshold)
+            else if (CurrentSanity <= scaredThreshold)
             {
-                Player.AddBuff(ModContent.BuffType<Frightened>(), 61);
+                Player.AddBuff(ModContent.BuffType<Scared>(), 61);
             }
             else if (CurrentSanity <= stressedThreshold)
             {

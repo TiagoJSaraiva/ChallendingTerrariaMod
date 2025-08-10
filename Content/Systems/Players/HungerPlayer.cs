@@ -127,7 +127,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                                 buffType == BuffID.WellFed2 ||
                                 buffType == BuffID.WellFed3)
                             {
-                                Player.buffTime[i] = 10 * 60;
+                                Player.buffTime[i] = 3 * 60;
                             }
                         }
                     }
@@ -138,9 +138,8 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         private void ApplyHungerDebuffs()
         {
-            int buffDuration = 120; 
+            int buffDuration = 61; 
 
-            Player.ClearBuff(ModContent.BuffType<Stuffed>());
             Player.ClearBuff(ModContent.BuffType<Full>());
             Player.ClearBuff(ModContent.BuffType<Peckish>());
             Player.ClearBuff(ModContent.BuffType<Hungry>());
@@ -151,14 +150,9 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             {
                 Player.AddBuff(ModContent.BuffType<Bloated>(), buffDuration);
             }
-            else if (CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Stuffed)
-            {
-                Player.AddBuff(ModContent.BuffType<Stuffed>(), buffDuration);
-            }
             else if (CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Full)
             {
                 Player.AddBuff(ModContent.BuffType<Full>(), buffDuration);
-
             }
             else if (CurrentHunger <= HungerSystem.HungerDebuffThreshold_Starved)
             {

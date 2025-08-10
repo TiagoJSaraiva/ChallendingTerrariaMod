@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using Terraria.Localization;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
@@ -18,18 +20,13 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.itemAnimationMax = 999;
             player.wingTimeMax = 0; // Impede voo
             player.mount.Dismount(player); // Desmonta (se estiver montado)
 
-            // Dano a cada 10 ticks (muito rapido)
             if (player.whoAmI == Main.myPlayer && Main.GameUpdateCount % 10 == 0) // Melhor usar Main.GameUpdateCount
             {
-                player.statLife -= 1; // Perde 1 de vida
-                if (player.statLife <= 0)
-                {
-                    player.KillMe(PlayerDeathReason.ByOther(1), 1.0, 0);
-                }
+                PlayerDeathReason reason = PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(player.name + " turned to ashes"));
+                player.Hurt(reason, 1, 0, false, true, -1, false, 200);
             }
             player.lifeRegen = 0;
             player.lifeRegenTime = 0;

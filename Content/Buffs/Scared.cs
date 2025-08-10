@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
-    public class Frightened : ModBuff
+    public class Scared : ModBuff
     {
         public override void SetStaticDefaults()
         {

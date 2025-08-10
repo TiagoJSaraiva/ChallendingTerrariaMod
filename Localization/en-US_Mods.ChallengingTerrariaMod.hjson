@@ -118,6 +118,11 @@ Buffs: {
 		DisplayName: Flee
 		Description: Mods.ChallengingTerrariaMod.Buffs.Flee.Description
 	}
+
+	Scared: {
+		DisplayName: Scared
+		Description: Mods.ChallengingTerrariaMod.Buffs.Scared.Description
+	}
 }
 
 od: {

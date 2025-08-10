@@ -62,10 +62,6 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                 {
                     Main.instance.MouseText("Hunger Meter\nYou're bloated");
                 }
-                else if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Stuffed)
-                {
-                    Main.instance.MouseText("Hunger Meter\nYou're stuffed");
-                }
                 else if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Full)
                 {
                     Main.instance.MouseText("Hunger Meter\nYou're full");

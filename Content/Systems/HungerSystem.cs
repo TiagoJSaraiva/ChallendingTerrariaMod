@@ -22,8 +22,7 @@ namespace ChallengingTerrariaMod.Content.Systems
 
         // Thresholds para os debuffs de saciedade
         public const float MaxHungerDebuffThreshold_Full = 1300; // Limite para "Full"
-        public const float MaxHungerDebuffThreshold_Stuffed = 1400; // Limite para "Stuffed"
-        public const float MaxHungerDebuffThreshold_Bloated = 1500; // Limite para "Bloated"
+        public const float MaxHungerDebuffThreshold_Bloated = 1400; // Limite para "Bloated"
 
         // Thresholds para os debuffs de fome
         public const float HungerDebuffThreshold_Peckish = 900; // Limite para "Peckish"

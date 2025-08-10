@@ -79,9 +79,9 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                                 {
                                         Main.instance.MouseText("Sanity meter\nYou're terrified");
                                 }
-                                else if (sanityPlayer.CurrentSanity <= sanityPlayer.frightenedThreshold)
+                                else if (sanityPlayer.CurrentSanity <= sanityPlayer.scaredThreshold)
                                 {
-                                        Main.instance.MouseText("Sanity meter\nYou're frightened");
+                                        Main.instance.MouseText("Sanity meter\nYou're scared");
                                 }
                                 else if (sanityPlayer.CurrentSanity <= sanityPlayer.stressedThreshold)
                                 {
