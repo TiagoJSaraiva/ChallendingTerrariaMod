@@ -92,6 +92,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 var playerDeathReason = PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(Player.name + " got obliterated"));
                 Player.KillMe(playerDeathReason, 999, 0);
                 counter = 10;
+                gloomActive = false;
                 return;
             }
             Main.NewText($"{counter}...", Color.DarkRed);
@@ -115,7 +116,11 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             }
             else if (CurrentSanity <= terrifiedThreshold)
             {
-                gloomActive = false;
+                if (gloomActive == true)
+                {
+                    Main.NewText("You got lucky this time", Color.DarkRed);
+                    gloomActive = false;
+                }
                 Player.AddBuff(ModContent.BuffType<Terrified>(), 61);
             }
             else if (CurrentSanity <= scaredThreshold)

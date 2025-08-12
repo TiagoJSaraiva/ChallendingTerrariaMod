@@ -120,7 +120,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
         {
             if (timeNoSleep == 1200)
             {
-                Main.NewText("You haven't slept for a while. You're starting to feel the consequences", Color.DarkBlue);
+                Main.NewText("Your sleep routine has been terrible. Your body is starting to feel the consequences.", Color.DarkBlue);
                 Player.AddBuff(ModContent.BuffType<SleepDeprived>(), 180 * 60);
                 timeNoSleep = 0;
             }

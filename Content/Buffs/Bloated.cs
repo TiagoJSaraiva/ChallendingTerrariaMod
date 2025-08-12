@@ -17,10 +17,7 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.moveSpeed *= 0.60f;
-            player.jumpSpeedBoost *= 0.60f;
-            player.wingTime /= 1.40f;
-            player.pickSpeed += 0.30f;
+            player.moveSpeed -= 0.4f; // movespeed reduced by 40%
         }
     }
 }

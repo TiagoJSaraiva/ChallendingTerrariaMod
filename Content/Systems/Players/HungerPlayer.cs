@@ -59,6 +59,19 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 }
             }
         }
+        public override void PostUpdateRunSpeeds()
+        {
+            if (Player.HasBuff(ModContent.BuffType<Bloated>()))
+            {
+                Player.maxRunSpeed *= 0.65f;
+                Player.accRunSpeed *= 0.65f;
+            }
+            else if (Player.HasBuff(ModContent.BuffType<Full>()))
+            {
+                Player.maxRunSpeed *= 0.85f;
+                Player.accRunSpeed *= 0.85f;
+            }
+        }
 
         public override void OnRespawn()
         {

@@ -1,7 +1,7 @@
 Buffs: {
 	Bloated: {
 		DisplayName: Bloated
-		Description: You feel like your stomach is going to explode! Huge decrease in movement stats.
+		Description: You ate too much! Great decrease in movement and jump speed. Also, be careful! If you eat more you may throw up.
 	}
 
 	Famished: {
@@ -11,7 +11,7 @@ Buffs: {
 
 	Full: {
 		DisplayName: Full
-		Description: You ate a little bit more than you needed! Small decrease in movement stats.
+		Description: You ate a little more than you needed! Small decrease in movement and jump speed.
 	}
 
 	Hungry: {

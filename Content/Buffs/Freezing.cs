@@ -19,7 +19,7 @@ namespace ChallengingTerrariaMod.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.pickSpeed += 0.30f; // -30% mining speed
-            player.lifeRegen -= 40; // -10 hp/s (10 * 60 ticks/s)
+            player.lifeRegen -= 20; // -10 hp/s (10 * 60 ticks/s) Técnica prática e boa
             player.moveSpeed += 0.20f;
            
 
