@@ -113,20 +113,6 @@ namespace ChallengingTerrariaMod.Content.Systems
                         // Aplica o incremento calculado das fontes ambientais/de buff
                         warmthPlayer.CurrentTemperature += currentTemperatureIncrement;
 
-                        // --- Lógica de Morte por Temperatura Extrema ---
-                        if (warmthPlayer.CurrentTemperature >= MaxTemperature) // 2000
-                        {
-                            player.KillMe(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(player.name + " turned to ashes")), 9999, 0);
-                            warmthPlayer.CurrentTemperature = ComfortableTemperature;
-                            continue;
-                        }
-                        else if (warmthPlayer.CurrentTemperature <= MinTemperature) // 0
-                        {
-                            player.KillMe(PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(player.name + "'s vital organs turned to ice")), 9999, 0);
-                            warmthPlayer.CurrentTemperature = ComfortableTemperature;
-                            continue;
-                        }
-
                         // Aplica normalização APENAS se não houver incremento de fontes externas
                         if (currentTemperatureIncrement == 0)
                         {
@@ -193,7 +179,7 @@ namespace ChallengingTerrariaMod.Content.Systems
                         hotSourceDetected = true;
                         if (currentTemperature < ComfortableTemperature)
                         {
-                            increments.Add(20);
+                            increments.Add(15);
                         }
                         break;
                     }
@@ -212,7 +198,7 @@ namespace ChallengingTerrariaMod.Content.Systems
                 inWaterLiquid = true;
                 if (currentTemperature > ComfortableTemperature)
                 {
-                    increments.Add(-20);
+                    increments.Add(-15);
                 }  
             }
             
@@ -221,52 +207,38 @@ namespace ChallengingTerrariaMod.Content.Systems
             // A noite quando na superfície
             if (!Main.dayTime && player.ZoneOverworldHeight && !hotSourceDetected)
             {
-                increments.Add(-10);
+                increments.Add(-3);
             }
             // Na tundra (qualquer camada)
             if (player.ZoneSnow && !hotSourceDetected)
             {
-                increments.Add(-15);
+                increments.Add(-20);//( normal: -8);
             }
             // Durante Chuvas quando na superfície
                 // Detecção de Tempestade: Chuva forte (Main.raining) + Cobertura de nuvens intensa (Main.cloudAlpha)
                 if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight && !hotSourceDetected)
                 {
-                    increments.Add(-10); // Tempestade
+                    increments.Add(-5); // Tempestade
                 }
                 else if (Main.raining && player.ZoneOverworldHeight && !hotSourceDetected)
                 {
-                    increments.Add(-5); // Chuva normal
+                    increments.Add(-3); // Chuva normal
                 }
-
-            // Sob efeito de Buffs
-            if (player.HasBuff(BuffID.OnFire))
-            {
-                increments.Add(10);
-            }
-            if (player.HasBuff(BuffID.Frostburn))
-            {
-                increments.Add(-10);
-            }
-            if (player.HasBuff(BuffID.Chilled)) 
-            {
-                increments.Add(-15);
-            }
 
             // Na praia de dia
             if (player.ZoneBeach && Main.dayTime && !inWaterLiquid)
             {
-                increments.Add(10);
+                increments.Add(3);
             }
             // No deserto de dia
             if (player.ZoneDesert && Main.dayTime && !inWaterLiquid)
             {
-                increments.Add(15);
+                increments.Add(20); // setar pra 5 dps
             }
             // No Inferno
             if (player.ZoneUnderworldHeight)
             {
-                increments.Add(20);
+                increments.Add(8);
             }
             // No Espaço (ZoneSkyHeight é a altura do espaço)
             if (player.ZoneSkyHeight)

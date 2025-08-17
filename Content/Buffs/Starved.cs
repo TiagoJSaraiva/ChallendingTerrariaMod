@@ -20,17 +20,24 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.wingTimeMax = 0; // Impede voo
-            player.mount.Dismount(player); // Desmonta (se estiver montado)
+            player.statDefense /= 1.8f;
+            player.endurance /= 1.8f;
+            player.pickSpeed += 0.60f;
+        }
+    }
 
-            if (player.whoAmI == Main.myPlayer && Main.GameUpdateCount % 10 == 0) // Melhor usar Main.GameUpdateCount
+    public class StarvedPlayer : ModPlayer
+    {
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff(ModContent.BuffType<Starved>()))
             {
-                PlayerDeathReason reason = PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(player.name + " turned to ashes"));
-                player.Hurt(reason, 1, 0, false, true, -1, false, 200);
-            }
-            player.lifeRegen = 0;
-            player.lifeRegenTime = 0;
+                if (Player.lifeRegen > 0)
+                    Player.lifeRegen = 0;
 
+                Player.lifeRegenTime = 0;
+                Player.lifeRegen -= 20;
+            }
         }
     }
 }

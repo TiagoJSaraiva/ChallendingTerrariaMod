@@ -3,7 +3,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using Terraria.ID; // Para BuffID.Confused, BuffID.Drunk
+using Terraria.ID;
+using ChallengingTerrariaMod.Content.Systems;
+using ChallengingTerrariaMod.Content.Systems.Players; // Para BuffID.Confused, BuffID.Drunk
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
@@ -19,14 +21,20 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // Redução de dano
-            player.GetDamage(DamageClass.Magic) -= 0.35f; // -35% de dano mágico
-            player.GetDamage(DamageClass.Ranged) -= 0.40f; // -40% de dano ranged
+            player.manaRegenBonus -= 50;
+            player.statLifeMax2 = RestSystem.RoundValue(player.statLifeMax2, 1.6f);
+            player.statManaMax2 = RestSystem.RoundValue(player.statManaMax2, 1.6f);
+        }
+    }
 
-            // Mana regen parada
-            player.manaRegen = 0; // Zera a regeneração de mana
-            player.manaRegenBonus = 0; // Garante que não há bônus
-            player.manaRegenDelay = 99999; // Aumenta o delay para um valor muito alto
+    public class ExhaustedPlayer : ModPlayer
+    {
+        public override void UpdateBadLifeRegen()
+        {
+            if ((Player.HasBuff(ModContent.BuffType<SleepDeprived>()) || Player.HasBuff(ModContent.BuffType<Exhausted>())) && Player.lifeRegen > 0)
+            {
+                Player.lifeRegen = (int)(Player.lifeRegen * 0.4f);
+            }
         }
     }
 }

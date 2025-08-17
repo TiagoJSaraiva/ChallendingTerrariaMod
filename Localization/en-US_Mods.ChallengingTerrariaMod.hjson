@@ -1,81 +1,82 @@
 Buffs: {
 	Bloated: {
 		DisplayName: Bloated
-		Description: You ate too much! Great decrease in movement and jump speed. Also, be careful! If you eat more you may throw up.
+		Description: You ate too much! Great decrease in movement speed. Also, be careful! If you eat more you may throw up.
 	}
 
 	Famished: {
 		DisplayName: Famished
-		Description: You're so hungry it feels like you stomach is burning! Great decrease on damage, mining speed and defense.
+		Description: You're so hungry it feels like you stomach is burning! Great decrease on defense stats and mining speed.
 	}
 
 	Full: {
 		DisplayName: Full
-		Description: You ate a little more than you needed! Small decrease in movement and jump speed.
+		Description: You ate a little more than you needed! Small decrease in movement speed.
 	}
 
 	Hungry: {
 		DisplayName: Hungry
-		Description: You are very hungry! Medium decrease on damage, mining speed and defense.
+		Description: You are hungry! Medium decrease on defensive stats and mining speed.
 	}
 
 	Nauseous: {
 		DisplayName: Nauseous
-		Description: You do not feel very well. Armor and damage greately Reduced and you also can't eat.
+		Description: Your are feeling sick and really dont want to eat anything right now.
 	}
 
 	Peckish: {
 		DisplayName: Peckish
-		Description: You're feeling a little hungry! Small decrease on damage and mining speed.
+		Description: You're not very hungry, but eating something wouldn't be bad. Small decrease on defensive stats and mining speed.
 	}
 
 	Starved: {
 		DisplayName: Starved
-		Description: Your body cant take any longe without food! You feel so weak that can no longer use tools or weapons, and quickly looses life
+		Description: Your body cant take any longe without food! Great decrease on defensive stats and mining speed, and you also lose life per second.
 	}
 
 	Stuffed: {
 		DisplayName: Stuffed
-		Description: You ate way too much! Medium decrease to movement stats.
+		Description: You ate way too much! Great decrease to movement speed.
 	}
 
 	ThrowingUp: {
 		DisplayName: Throwing Up
-		Description: This is what gluttony does to a man...
+		Description: Eating too much food caused your body to expel it.
 	}
 
 	Cold: {
 		DisplayName: Cold
-		Description: Mods.ChallengingTerrariaMod.Buffs.Cold.Description
+		Description: You're starting to feel a little bit cold. Mining speed and building speed slightly decreased.
 	}
 
 	Freezing: {
 		DisplayName: Freezing
-		Description: Mods.ChallengingTerrariaMod.Buffs.Freezing.Description
+		Description: Your whole body feels like it's about to freeze. Great decrease in mining speed and building speed. Every second you have a small chance of freezing or getting the frostburn effect.
 	}
 
 	Hot: {
 		DisplayName: Hot
-		Description: Mods.ChallengingTerrariaMod.Buffs.Hot.Description
+		Description: You are sweating like crazy and feeling overheated. Medium decrease in mining speed and building speed. Every second you have a small chance of getting the On fire debuff.
 	}
 
 	Scorching: {
 		DisplayName: Scorching
-		Description: You're burning alive
+		Description: it feels like your skin is burning and your organs are going to melt down. Great decrease in mining speed and building speed. Every second you have a small chance of getting the On fire debuff and you also take damage continuously.
+	}
 	}
 
 	VeryCold: {
 		DisplayName: Very Cold
-		Description: Mods.ChallengingTerrariaMod.Buffs.VeryCold.Description
+		Description: It's so cold your fingertips and face are numb. Medium decrease in mining speed and building speed. Every second you have a small chance of getting the frostburn effect.
 	}
 
 	Warm: {
 		DisplayName: Warm
-		Description: Mods.ChallengingTerrariaMod.Buffs.Warm.Description
+		Description: The air around is warm, making you start to sweat. Medium decrease in mining speed and building speed
 	}
 
 	Tired: {
-		Description: You are tired and can't focus. Magic and Ranged damage slightly reduced. Mana regen reduced.
+		Description: PAREI NESSE AQUI
 		DisplayName: Tired
 	}
 

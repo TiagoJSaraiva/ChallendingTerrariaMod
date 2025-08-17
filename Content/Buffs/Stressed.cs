@@ -18,7 +18,7 @@ namespace ChallengingTerrariaMod.Content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Generic) -= 0.10f; // 10% reduction in player damage
-            player.GetCritChance(DamageClass.Generic) -= 0.05f; // 5% reduction in player critchance
+            player.GetCritChance(DamageClass.Generic) -= 5; // 5% reduction in player critchance
         }
     }
 }

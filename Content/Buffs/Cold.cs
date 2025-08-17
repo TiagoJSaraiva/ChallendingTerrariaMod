@@ -16,7 +16,9 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.pickSpeed += 0.10f; // -10% mining speed (maior valor = mais lento)
+            player.pickSpeed += 0.20f;
+            player.tileSpeed *= 0.8f;
+            player.wallSpeed *= 0.8f;
         }
     }
 }

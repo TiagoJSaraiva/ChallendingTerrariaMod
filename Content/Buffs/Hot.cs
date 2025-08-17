@@ -15,11 +15,14 @@ namespace ChallengingTerrariaMod.Content.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense -= 5; // -5 defense
-            player.GetDamage(DamageClass.Generic) -= 0.10f; // -10% damage
+            player.pickSpeed += 0.30f;
+            player.tileSpeed *= 0.7f;
+            player.wallSpeed *= 0.7f;
 
-            // Não pode regenerar vida. Zera a regeneração de vida.
-            player.lifeRegen = 0;
+            if (Main.GameUpdateCount % 60 == 0 && Main.rand.NextFloat() < 0.05f && !player.HasBuff(BuffID.OnFire))
+            {
+                player.AddBuff(BuffID.OnFire, 5 * 60);
+            }
         }
     }
 }

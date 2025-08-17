@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
+using ChallengingTerrariaMod.Content.Systems;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
@@ -19,12 +20,20 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // Redução de dano
-            player.GetDamage(DamageClass.Magic) -= 0.15f; // -15% de dano mágico
-            player.GetDamage(DamageClass.Ranged) -= 0.20f; // -20% de dano ranged
+            player.manaRegenBonus -= 35;
+            player.statLifeMax2 = RestSystem.RoundValue(player.statLifeMax2, 1.4f);
+            player.statManaMax2 = RestSystem.RoundValue(player.statManaMax2, 1.4f);
+        }
+    }
 
-            // Redução da regeneração de mana
-            player.manaRegenCount -= (int)(player.manaRegenCount * 0.50f); // Reduz em 50% a contagem de regeneração (mais significativo)
+    public class SleepyPlayer : ModPlayer
+    {
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff(ModContent.BuffType<Sleepy>()) && Player.lifeRegen > 0)
+            {
+                Player.lifeRegen = (int)(Player.lifeRegen * 0.6f);
+            }
         }
     }
 }

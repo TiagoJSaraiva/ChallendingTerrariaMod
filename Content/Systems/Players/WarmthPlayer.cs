@@ -34,7 +34,6 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
         {
             CurrentTemperature = WarmthSystem.ComfortableTemperature;
             LastTemperatureChange = 0;
-            Main.NewText($"Sua temperatura foi restaurada para {WarmthSystem.ComfortableTemperature}.", Color.LightBlue);
         }
 
         public override void SaveData(TagCompound tag)

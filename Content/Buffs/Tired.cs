@@ -4,11 +4,13 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ID;
+using ChallengingTerrariaMod.Content.Systems;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
     public class Tired : ModBuff
     {
+
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;
@@ -19,11 +21,20 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // Redução de dano
-            player.GetDamage(DamageClass.Magic) -= 0.10f; // -10% de dano mágico
-            player.GetDamage(DamageClass.Ranged) -= 0.10f; // -10% de dano ranged
-            player.manaRegenCount -= (int)(player.manaRegenCount * 0.25f); // Reduz em 25% a contagem de regeneração
-            // Isso fará com que a mana regenere mais lentamente. Ajuste o 0.25f conforme o desejado para "levemente".
+            player.manaRegenBonus -= 25;
+            player.statLifeMax2 = RestSystem.RoundValue(player.statLifeMax2, 1.2f);
+            player.statManaMax2 = RestSystem.RoundValue(player.statManaMax2, 1.2f);
+        }
+    }
+
+    public class TiredPlayer : ModPlayer
+    {
+        public override void UpdateBadLifeRegen()
+        {
+            if (Player.HasBuff(ModContent.BuffType<Tired>()) && Player.lifeRegen > 0)
+            {
+                Player.lifeRegen = (int)(Player.lifeRegen * 0.8f);
+            }
         }
     }
 }

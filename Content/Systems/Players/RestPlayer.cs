@@ -79,7 +79,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             {
                 Player.immuneAlpha = 0;
             }
- 
+
             if (Main.GameUpdateCount % RestSystem.restUpdateRate == 0)
             {
                 if (Player.active && !Player.dead && !Player.ghost && !Player.HasBuff(ModContent.BuffType<Fainted>()))
@@ -136,7 +136,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
             if (CurrentRest <= faintedThreshold)
             {
-                CurrentRest = 1000;
+                CurrentRest = sleepyThreshold - 100;
                 Player.AddBuff(ModContent.BuffType<Fainted>(), 10 * 60);
             }
             else if (CurrentRest <= exhaustedThreshold)

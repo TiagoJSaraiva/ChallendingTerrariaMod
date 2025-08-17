@@ -16,15 +16,14 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.pickSpeed += 0.15f; // -15% mining speed
-            player.moveSpeed += 0.10f;
+            player.pickSpeed += 0.30f;
+            player.tileSpeed *= 0.7f;
+            player.wallSpeed *= 0.7f;
 
-            // -1 hp/s (caso a regeneração do jogador seja positiva)
-            if (player.lifeRegen > 0)
+            if (Main.GameUpdateCount % 60 == 0 && Main.rand.NextFloat() < 0.05f && !player.HasBuff(BuffID.Frostburn))
             {
-                player.lifeRegen = 0; // Zera a regeneração para que a penalidade seja sentida
+                player.AddBuff(BuffID.Frostburn, 7 * 60);
             }
-            player.lifeRegen -= 10; // 60 ticks = 1 hp/s. -1 hp/s
         }
     }
 }

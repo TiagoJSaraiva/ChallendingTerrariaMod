@@ -29,7 +29,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 if (CurrentHunger >= HungerSystem.AbsoluteMaxHunger)
                 {
                     CurrentHunger = RespawnHungerValue;
-                    Player.AddBuff(ModContent.BuffType<Nauseous>(), 3 * 10 * 60);
+                    Player.AddBuff(ModContent.BuffType<Nauseous>(),  60 * 60);
                     Player.AddBuff(ModContent.BuffType<ThrowingUp>(), 2 * 60);
 
                     Player.ClearBuff(BuffID.WellFed);
@@ -92,14 +92,6 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 }
                 foodItemConsumedThisTick = true;
                 return true; 
-            }
-
-            if (Player.HasBuff(ModContent.BuffType<Starved>()))
-            {
-                if (item.damage > 0 || item.pick > 0 || item.axe > 0 || item.hammer > 0)
-                {
-                    return false; 
-                }
             }
             return base.CanUseItem(item);
         }

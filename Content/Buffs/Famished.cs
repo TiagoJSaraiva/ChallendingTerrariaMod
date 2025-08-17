@@ -18,21 +18,9 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.pickSpeed += 0.25f;
-            if (player.statDefense - 10f == 0)
-            {
-                player.statDefense -= player.statDefense;
-            }
-            else
-            {
-                player.statDefense -= 10;
-            }
-
-            player.GetDamage(DamageClass.Generic) -= 0.15f; // 15% de redução de dano
-            player.GetCritChance(DamageClass.Generic) -= 10; // 10% de redução de chance de crítico
-
-            player.lifeRegen = 0;
-            player.lifeRegenTime = 0;
+            player.statDefense /= 1.6f;
+            player.endurance -= 0.1f;
+            player.pickSpeed += 0.45f;
         }
     }
 }

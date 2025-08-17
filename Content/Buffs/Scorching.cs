@@ -1,6 +1,8 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.DataStructures;
+using Terraria.Localization;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
@@ -16,12 +18,21 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense -= 15; // -15 defense
-            player.GetDamage(DamageClass.Generic) -= 0.20f; // -20% damage
+            player.pickSpeed += 0.50f;
+            player.tileSpeed *= 0.5f;
+            player.wallSpeed *= 0.5f;
 
-            // Não pode regenerar vida. Zera a regeneração de vida.
-            player.lifeRegen = 0;
-            player.lifeRegen -= 100; // -10 hp/s (10 * 60 ticks/s)
+            if (Main.GameUpdateCount % 60 == 0 && Main.rand.NextFloat() < 0.05f && !player.HasBuff(BuffID.OnFire))
+            {
+                player.AddBuff(BuffID.OnFire, 5 * 60);
+            }
+
+            PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral("Burned to death"));
+
+            if (Main.GameUpdateCount % 60 == 0)
+            {
+                player.Hurt(deathReason, 15, 0, false, true, -1, false);
+            }
         }
     }
 }

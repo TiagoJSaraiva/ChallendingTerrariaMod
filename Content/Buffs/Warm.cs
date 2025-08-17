@@ -16,8 +16,9 @@ namespace ChallengingTerrariaMod.Content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.statDefense -= 3; // -3 defense
-            player.GetDamage(DamageClass.Generic) -= 0.05f; // -5% damage
+            player.pickSpeed += 0.20f;
+            player.tileSpeed *= 0.8f;
+            player.wallSpeed *= 0.8f;
         }
     }
 }

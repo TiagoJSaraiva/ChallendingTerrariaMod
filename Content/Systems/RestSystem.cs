@@ -29,7 +29,7 @@ namespace ChallengingTerrariaMod.Content.Systems
 
         // UI do sono
         public static UserInterface RestUserInterface;
-        public static RestMeterUI RestUIState; 
+        public static RestMeterUI RestUIState;
 
         public override void Load()
         {
@@ -105,18 +105,31 @@ namespace ChallengingTerrariaMod.Content.Systems
                             {
                                 restPlayer.CurrentRest += sleepPerSecond;
                             }
-                        } else if (!Main.dayTime) // AGORA VERIFICA APENAS SE É NOITE GERAL
+                        }
+                        else if (!Main.dayTime) // AGORA VERIFICA APENAS SE É NOITE GERAL
                         {
                             // Se NÃO estiver dormindo na cama E for noite (qualquer hora da noite), ele ganha sono.
                             restPlayer.CurrentRest -= sleepPerSecond;
                         }
                         // Se não estiver dormindo na cama E for dia (Main.dayTime é true), o sono não muda.
-                        
+
                         // Garante que o sono esteja dentro dos limites
                         restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, minSleep, maxSleep);
                     }
                 }
             }
+        }
+        
+        public static int RoundValue(int value, float divisor)
+        {
+            value = (int)(value / divisor);
+            
+            while (value % 20 != 0)
+            {
+                value--;
+            }
+
+            return value;
         }
     }
 }
