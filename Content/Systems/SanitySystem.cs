@@ -8,6 +8,7 @@ using Terraria.UI;
 using Terraria.Localization;
 using ChallengingTerrariaMod.Content.Systems.UI;
 using System;
+using ChallengingTerrariaMod.Content.Buffs;
 
 namespace ChallengingTerrariaMod.Content.Systems
 {
@@ -100,19 +101,22 @@ namespace ChallengingTerrariaMod.Content.Systems
                         SanityPlayer sanityPlayer = player.GetModPlayer<SanityPlayer>();
                         if (sanityPlayer == null) continue;
 
-                        // Sanity logic
 
-                        if (player.ZoneDungeon || player.ZoneUnderworldHeight || player.ZoneCrimson || player.ZoneCorrupt) // If the player is in Dungeon, Underworld or corruption/crimson, he loses sanity
+                        // Sanity logic
+                        if (!player.HasBuff(ModContent.BuffType<ArmoredMind>()))
                         {
-                            sanityPlayer.CurrentSanity -= 7.5f;
-                        } 
-                        if (player.townNPCs > 2) // If the player is in a town, he gains sanity.
-                        {
-                            sanityPlayer.CurrentSanity += 9;
-                        }
-                        if (player.statLife <= (player.statLifeMax / 2)) // If player has less than half of his max health, he loses sanity.
-                        {
-                            sanityPlayer.CurrentSanity -= 9; 
+                            if (player.ZoneDungeon || player.ZoneUnderworldHeight || player.ZoneCrimson || player.ZoneCorrupt) // If the player is in Dungeon, Underworld or corruption/crimson, he loses sanity
+                            {
+                                sanityPlayer.CurrentSanity -= 7.5f;
+                            }
+                            if (player.townNPCs > 2) // If the player is in a town, he gains sanity.
+                            {
+                                sanityPlayer.CurrentSanity += 9;
+                            }
+                            if (player.statLife <= (player.statLifeMax / 2)) // If player has less than half of his max health, he loses sanity.
+                            {
+                                sanityPlayer.CurrentSanity -= 9;
+                            }
                         }
                         sanityPlayer.CurrentSanity += 3; // This is the normalization factor. It raises the sanity if the player is not under danger.
 

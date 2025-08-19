@@ -8,6 +8,7 @@ using Terraria.UI;
 using Terraria.Localization;
 using ChallengingTerrariaMod.Content.Systems.UI;
 using System;
+using ChallengingTerrariaMod.Content.Buffs;
 
 namespace ChallengingTerrariaMod.Content.Systems
 {
@@ -106,10 +107,10 @@ namespace ChallengingTerrariaMod.Content.Systems
                                 restPlayer.CurrentRest += sleepPerSecond;
                             }
                         }
-                        else if (!Main.dayTime) // AGORA VERIFICA APENAS SE É NOITE GERAL
+                        else if (!Main.dayTime || player.HasBuff(ModContent.BuffType<SleepDeprived>())) // AGORA VERIFICA APENAS SE É NOITE GERAL
                         {
                             // Se NÃO estiver dormindo na cama E for noite (qualquer hora da noite), ele ganha sono.
-                            restPlayer.CurrentRest -= sleepPerSecond;
+                            if(!player.HasBuff(ModContent.BuffType<Cafeinated>())) restPlayer.CurrentRest -= sleepPerSecond;
                         }
                         // Se não estiver dormindo na cama E for dia (Main.dayTime é true), o sono não muda.
 

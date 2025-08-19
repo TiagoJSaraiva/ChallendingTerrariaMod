@@ -34,11 +34,6 @@ Buffs: {
 		Description: Your body cant take any longe without food! Great decrease on defensive stats and mining speed, and you also lose life per second.
 	}
 
-	Stuffed: {
-		DisplayName: Stuffed
-		Description: You ate way too much! Great decrease to movement speed.
-	}
-
 	ThrowingUp: {
 		DisplayName: Throwing Up
 		Description: Eating too much food caused your body to expel it.
@@ -63,6 +58,25 @@ Buffs: {
 		DisplayName: Scorching
 		Description: it feels like your skin is burning and your organs are going to melt down. Great decrease in mining speed and building speed. Every second you have a small chance of getting the On fire debuff and you also take damage continuously.
 	}
+
+	Flee: {
+		DisplayName: Flee
+		Description: You're running away from the last enemie that hit you.
+	}
+
+	Scared: {
+		DisplayName: Scared
+		Description: You feel tense and scared. Your surrounds look scarier and darker. Medium reduction to damage and crit chance.
+	}
+
+	Stressed: {
+		DisplayName: Stressed
+		Description: Something is making you uncomfortable. Minor reduction to damage and crit chance.
+	}
+
+	Terrified: {
+		DisplayName: Terrified
+		Description: An uncontrollable fear is taking over your brain. Great reduction to damage and crit chance. When attacked, you character has a small chance of running away from the enemies. Also, be careful, staying in the dark for too long can be dangerous.
 	}
 
 	VeryCold: {
@@ -76,133 +90,46 @@ Buffs: {
 	}
 
 	Tired: {
-		Description: PAREI NESSE AQUI
+		Description: You are getting tired. Minor decrease in Mana and Hp stats.
 		DisplayName: Tired
 	}
 
 	Sleepy: {
-		Description: You are starting to feel sleepy and your mind isn't working properly. Magic and ranged damage reduced greately.
+		Description: You could use some rest. Medium decrease in Mana and Hp stats.
 		DisplayName: Sleepy
 	}
 
 	Fainted: {
-		Description: You fainted.
-		DisplayName: Fainted
+		Description: You are so tired that you fainted. Unable to move or use itens until the debuff ends.
+		DisplayName: Unconscious
 	}
 
 	Exhausted: {
-		Description: You are extremely exhausted. Magic and ranged damage severely reduced and mana regen is stopped. Your body don't obey you anymore.
+		Description: You really needs to sleep. Great decrease in Mana and Hp stats. You may also randomly get the Confused debuff.
 		DisplayName: Exhausted
 	}
 
 	SleepDeprived: {
 		DisplayName: Sleep Deprived
-		Description: Mods.ChallengingTerrariaMod.Buffs.SleepDeprived.Description
+		Description: You haven't been sleeping well lately. In this state, you're slowly losing rest points, even during the day. Also, coffee and other types of substances that stops you from getting tired do not work on you.
 	}
 
-	Frightened: {
-		DisplayName: Frightened
-		Description: Mods.ChallengingTerrariaMod.Buffs.Frightened.Description
+	ArmoredMind: {
+		DisplayName: Armored Mind
+		Description: Nothing can shake you.
 	}
 
-	Stressed: {
-		DisplayName: Stressed
-		Description: Mods.ChallengingTerrariaMod.Buffs.Stressed.Description
-	}
-
-	Terrified: {
-		DisplayName: Terrified
-		Description: Mods.ChallengingTerrariaMod.Buffs.Terrified.Description
-	}
-
-	Flee: {
-		DisplayName: Flee
-		Description: Mods.ChallengingTerrariaMod.Buffs.Flee.Description
-	}
-
-	Scared: {
-		DisplayName: Scared
-		Description: Mods.ChallengingTerrariaMod.Buffs.Scared.Description
+	Cafeinated: {
+		DisplayName: Cafeinated
+		Description: Your a little too energetic.
 	}
 }
 
-od: {
-	Buffs: {
-		Bloated: {
-			DisplayName: Bloated
-			Description: Mods.ChallengingTerrariaMod.Buffs.Bloated.Description
-		}
+Projectiles.FaintedVFX.DisplayName: Fainted VFX
 
-		Cold: {
-			DisplayName: Cold
-			Description: Mods.ChallengingTerrariaMod.Buffs.Cold.Description
-		}
-
-		Famished: {
-			DisplayName: Famished
-			Description: Mods.ChallengingTerrariaMod.Buffs.Famished.Description
-		}
-
-		Freezing: {
-			DisplayName: Freezing
-			Description: Mods.ChallengingTerrariaMod.Buffs.Freezing.Description
-		}
-
-		Full: {
-			DisplayName: Full
-			Description: Mods.ChallengingTerrariaMod.Buffs.Full.Description
-		}
-
-		Hot: {
-			DisplayName: Hot
-			Description: Mods.ChallengingTerrariaMod.Buffs.Hot.Description
-		}
-
-		Hungry: {
-			DisplayName: Hungry
-			Description: Mods.ChallengingTerrariaMod.Buffs.Hungry.Description
-		}
-
-		Nauseous: {
-			DisplayName: Nauseous
-			Description: Mods.ChallengingTerrariaMod.Buffs.Nauseous.Description
-		}
-
-		Peckish: {
-			DisplayName: Peckish
-			Description: Mods.ChallengingTerrariaMod.Buffs.Peckish.Description
-		}
-
-		Scorching: {
-			DisplayName: Scorching
-			Description: Mods.ChallengingTerrariaMod.Buffs.Scorching.Description
-		}
-
-		Starved: {
-			DisplayName: Starved
-			Description: Mods.ChallengingTerrariaMod.Buffs.Starved.Description
-		}
-
-		Stuffed: {
-			DisplayName: Stuffed
-			Description: Mods.ChallengingTerrariaMod.Buffs.Stuffed.Description
-		}
-
-		ThrowingUp: {
-			DisplayName: Throwing Up
-			Description: Mods.ChallengingTerrariaMod.Buffs.ThrowingUp.Description
-		}
-
-		VeryCold: {
-			DisplayName: Very Cold
-			Description: Mods.ChallengingTerrariaMod.Buffs.VeryCold.Description
-		}
-
-		Warm: {
-			DisplayName: Warm
-			Description: Mods.ChallengingTerrariaMod.Buffs.Warm.Description
-		}
+Items: {
+	Cigarette: {
+		DisplayName: Cigarette
+		Tooltip: Retards sanity loss. Smoke in moderation!
 	}
 }
-
-Projectiles.FaintedVFX.DisplayName: Fainted V F X

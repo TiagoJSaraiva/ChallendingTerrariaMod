@@ -90,6 +90,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
             }
         }
 
+
         public override void SaveData(TagCompound tag)
         {
             tag.Add("CurrentRest", CurrentRest);
@@ -118,16 +119,16 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         private void ApplyRestDebuffs()
         {
-            if (timeNoSleep == 1200)
+            if (timeNoSleep >= 1200)
             {
                 Main.NewText("Your sleep routine has been terrible. Your body is starting to feel the consequences.", Color.DarkBlue);
-                Player.AddBuff(ModContent.BuffType<SleepDeprived>(), 180 * 60);
+                Player.AddBuff(ModContent.BuffType<SleepDeprived>(), 600 * 60);
                 timeNoSleep = 0;
             }
 
-            if (Player.HasBuff(ModContent.BuffType<Exhausted>()) && Main.rand.NextFloat() < 0.2f && !Player.HasBuff(BuffID.Confused))
+            if (Player.HasBuff(ModContent.BuffType<Exhausted>()) && Main.rand.NextFloat() < 0.15f && !Player.HasBuff(BuffID.Confused))
             {
-                Player.AddBuff(BuffID.Confused, 3 * 60);
+                Player.AddBuff(BuffID.Confused, 2 * 60);
             }
 
             Player.ClearBuff(ModContent.BuffType<Tired>());
@@ -136,7 +137,7 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
             if (CurrentRest <= faintedThreshold)
             {
-                CurrentRest = sleepyThreshold - 100;
+                CurrentRest = exhaustedThreshold;
                 Player.AddBuff(ModContent.BuffType<Fainted>(), 10 * 60);
             }
             else if (CurrentRest <= exhaustedThreshold)

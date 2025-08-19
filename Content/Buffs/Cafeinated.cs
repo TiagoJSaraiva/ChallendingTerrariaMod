@@ -1,23 +1,20 @@
-// ChallengingTerrariaMod/Content/Buffs/Nauseous.cs
+// ChallengingTerrariaMod/Content/Buffs/Full.cs
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using ChallengingTerrariaMod.Content.Systems;
+using Terraria.ID;
+using Terraria.GameContent;
 using ChallengingTerrariaMod.Content.Systems.Players;
 
 namespace ChallengingTerrariaMod.Content.Buffs
 {
-    public class SleepDeprived : ModBuff
+    public class Cafeinated : ModBuff
     {
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = true;
+            Main.buffNoSave[Type] = true;
             BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-
+            Main.buffNoTimeDisplay[Type] = true;
         }
     }
 }
