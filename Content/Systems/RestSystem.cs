@@ -107,14 +107,14 @@ namespace ChallengingTerrariaMod.Content.Systems
                                 restPlayer.CurrentRest += sleepPerSecond;
                             }
                         }
-                        else if (!Main.dayTime || player.HasBuff(ModContent.BuffType<SleepDeprived>())) // AGORA VERIFICA APENAS SE É NOITE GERAL
+                        else if (player.HasBuff(ModContent.BuffType<SleepDeprived>()))
                         {
-                            // Se NÃO estiver dormindo na cama E for noite (qualquer hora da noite), ele ganha sono.
-                            if(!player.HasBuff(ModContent.BuffType<Cafeinated>())) restPlayer.CurrentRest -= sleepPerSecond;
+                            restPlayer.CurrentRest -= sleepPerSecond;
                         }
-                        // Se não estiver dormindo na cama E for dia (Main.dayTime é true), o sono não muda.
-
-                        // Garante que o sono esteja dentro dos limites
+                        else if (!Main.dayTime && !player.HasBuff(ModContent.BuffType<Cafeinated>()))
+                        {
+                            restPlayer.CurrentRest -= sleepPerSecond;
+                        }
                         restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, minSleep, maxSleep);
                     }
                 }

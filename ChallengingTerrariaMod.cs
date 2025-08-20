@@ -1,5 +1,4 @@
 using Terraria.ModLoader;
-using ChallengingTerrariaMod.Content.Systems.Projectiles;
 
 namespace ChallengingTerrariaMod
 {

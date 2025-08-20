@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ID;
-using ChallengingTerrariaMod.Content.Systems.Projectiles;
 using ChallengingTerrariaMod.Content.Buffs;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
@@ -10,7 +9,6 @@ using System;
 using Terraria.GameInput;
 using Terraria.Localization;
 using ChallengingTerrariaMod.Content.Systems;
-using Mono.Cecil.Cil;
 
 namespace ChallengingTerrariaMod.Content.Systems.Players
 {

@@ -11,10 +11,8 @@ namespace ChallengingTerrariaMod.Content.Buffs
     {
         public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            BuffID.Sets.NurseCannotRemoveDebuff[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true;
+            Main.buffNoSave[Type] = false;
+            Main.buffNoTimeDisplay[Type] = false;
         }
     }
 }

@@ -5,72 +5,90 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using ChallengingTerrariaMod.Content.Buffs;
 using Terraria.Audio;
+using ChallengingTerrariaMod.Content.Projectiles;
+using Terraria.ModLoader.IO;
 
 namespace ChallengingTerrariaMod.Content.Consumables
 {
     public class Cigarette : ModItem
     {
+        private int CigarettesSmoked;
+
         public override void SetStaticDefaults()
         {
-
+            CigarettesSmoked = 0;
         }
-
         public override void SetDefaults()
         {
             Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useAnimation = 240;
+            Item.useAnimation = 240; 
             Item.useTime = 240;
+            Item.shoot = ModContent.ProjectileType<CigaretteProjectile>();
+            Item.shootSpeed = 1f;
             Item.useTurn = true;
-            Item.UseSound = new SoundStyle("ChallengingTerrariaMod/Assets/Audio/CigaretteSFX");;
+            Item.UseSound = new SoundStyle("ChallengingTerrariaMod/Assets/Audio/CigaretteSFX"); ;
             Item.maxStack = Item.CommonMaxStack;
             Item.consumable = true;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(silver: 50);
-
-            Item.buffType = ModContent.BuffType<ArmoredMind>();
-            Item.buffTime = 60 * 120; // Duração do buff em ticks
+            Item.noUseGraphic = true;
         }
 
         public override void OnConsumeItem(Player player)
         {
+            player.AddBuff(ModContent.BuffType<ArmoredMind>(), 60 * 120);
+            CigarettesSmoked++;
+            if (CigarettesSmoked >= 50)
+            {
+                player.AddBuff(ModContent.BuffType<Cancer>(), 60 * 3000);
+                Main.NewText("You haven't been smoking in moderation, have you?", Color.White);
+                CigarettesSmoked = 0;
+            }
+        }
 
+        public override void SaveData(TagCompound tag)
+        {
+            tag.Add("CigarettesSmoked", CigarettesSmoked);
+        }
+
+        public override void LoadData(TagCompound tag)
+        {
+            if (tag.ContainsKey("CigarettesSmoked"))
+            {
+                CigarettesSmoked = tag.GetInt("CigarettesSmoked");
+            }
+            else
+            {
+                CigarettesSmoked = 0; 
+            }
         }
     }
 
     public class CigarettePlayer : ModPlayer
     {
-        public override void PostUpdate()
+        private bool hadCancerBeforeDeath;
+        public override void UpdateDead()
         {
-            if (Player.itemAnimation > 0)
+            if (Player.HasBuff(ModContent.BuffType<Cancer>()))
             {
-                if (Player.HeldItem.type == ModContent.ItemType<Cigarette>())
-                {
-                    // Gere partículas de fumaça a cada 2 ticks para um efeito mais sutil
-                    if (Player.itemAnimation % 10 == 0) 
-                    {
-                        // A posição da partícula é ajustada para sair da boca do jogador
-                        Vector2 dustPos = Player.Center + new Vector2(30 * Player.direction, -10);
+                hadCancerBeforeDeath = true;
+            }
+        }
 
-                        // A velocidade é principalmente para cima (eixo Y negativo)
-                        Vector2 dustVel = new Vector2(Main.rand.NextFloat(-0.05f, 0.05f), -Main.rand.NextFloat(4f, 2f));
+        public override void OnRespawn()
+        {
+            if (hadCancerBeforeDeath == true)
+            {
+                Player.AddBuff(ModContent.BuffType<Cancer>(), 60 * 3000);
+                hadCancerBeforeDeath = false;
+            }
+        }
 
-                        // Crie a poeira
-                        Dust dust = Dust.NewDustDirect(
-                            dustPos,             // Posição
-                            0,                   // Largura
-                            0,                   // Altura
-                            DustID.Smoke,        // Tipo de poeira. DustID.Cloud também é uma boa opção.
-                            dustVel.X,           // Velocidade X
-                            dustVel.Y,           // Velocidade Y
-                            100,                 // Opacidade (0-255). Um valor maior que 0 faz a poeira ser mais transparente.
-                            Color.White,         // Cor
-                            1.2f                 // Tamanho (scale). Um valor maior faz a fumaça parecer mais densa.
-                        );
-                        
-                        dust.noGravity = true;  // Faz a fumaça flutuar para cima
-                        dust.fadeIn = 1.1f;     // Aumenta a duração da partícula antes de desaparecer
-                    }
-                }
+        public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)
+        {
+            if (Player.HasBuff(ModContent.BuffType<Cancer>()))
+            {
+                price += Item.buyPrice(platinum: 10);
             }
         }
     }

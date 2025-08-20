@@ -2,12 +2,14 @@
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ID;
-using ChallengingTerrariaMod.Content.Systems.Projectiles;
+using ChallengingTerrariaMod.Content.Projectiles;
 using ChallengingTerrariaMod.Content.Buffs;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria.GameInput;
+using System.Collections.Generic;
+using Terraria.UI;
 
 namespace ChallengingTerrariaMod.Content.Systems.Players
 {

@@ -123,9 +123,17 @@ Buffs: {
 		DisplayName: Cafeinated
 		Description: Your a little too energetic.
 	}
+
+	Cancer: {
+		DisplayName: Cancer
+		Description: It's exactly what you're reading. Get cured by the nurse, for a high price.
+	}
 }
 
-Projectiles.FaintedVFX.DisplayName: Fainted VFX
+Projectiles: {
+	FaintedVFX.DisplayName: Fainted VFX
+	CigaretteProjectile.DisplayName: Cigarette Projectile
+}
 
 Items: {
 	Cigarette: {
