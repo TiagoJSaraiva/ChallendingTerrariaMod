@@ -128,6 +128,11 @@ Buffs: {
 		DisplayName: Cancer
 		Description: It's exactly what you're reading. Get cured by the nurse, for a high price.
 	}
+
+	Nourished: {
+		DisplayName: Nourished
+		Description: Mods.ChallengingTerrariaMod.Buffs.Nourished.Description
+	}
 }
 
 Projectiles: {
@@ -138,6 +143,11 @@ Projectiles: {
 Items: {
 	Cigarette: {
 		DisplayName: Cigarette
-		Tooltip: Retards sanity loss. Smoke in moderation!
+		Tooltip: Prevents sanity loss. Smoke in moderation!
+	}
+
+	Vitamin: {
+		DisplayName: Vitamin
+		Tooltip: Prevents hunger loss.
 	}
 }

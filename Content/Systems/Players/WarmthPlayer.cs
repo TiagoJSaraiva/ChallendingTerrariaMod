@@ -80,64 +80,52 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         public override void PostUpdate()
         {
-            // Aplica debuffs apenas na mesma taxa de atualização da temperatura
             if (Main.GameUpdateCount % WarmthSystem.TEMPERATURE_UPDATE_RATE == 0)
-            {
-                // Garante que o jogador está ativo e não morto/fantasma para aplicar debuffs
+            { 
                 if (Player.active && !Player.dead && !Player.ghost)
                 {
-                    ApplyWarmthDebuffs(); // Chama a nova função privada
+                    ApplyWarmthDebuffs(); 
                 }
             }
         }
 
-        // NOVO MÉTODO PRIVADO PARA APLICAÇÃO DE DEBUFFS DE TEMPERATURA
         private void ApplyWarmthDebuffs()
         {
-            // --- APLICAÇÃO DE DEBUFFS CUSTOMIZADOS BASEADA NA TEMPERATURA ---
 
-            // 1. Lógica para DEBUFFS DE FRIO
-            // Primeiro, remova TODOS os buffs de frio para garantir que apenas o correto será aplicado
             Player.ClearBuff(ModContent.BuffType<Freezing>());
             Player.ClearBuff(ModContent.BuffType<VeryCold>());
             Player.ClearBuff(ModContent.BuffType<Cold>());
 
-            if (CurrentTemperature <= 200) // 0 até 199: Freezing
+            if (CurrentTemperature <= 200) 
             {
                 Player.AddBuff(ModContent.BuffType<Freezing>(), 60);
             }
-            else if (CurrentTemperature <= 500) // 200 até 499: Chilled
+            else if (CurrentTemperature <= 500)
             {
                 Player.AddBuff(ModContent.BuffType<VeryCold>(), 60);
             }
-            else if (CurrentTemperature <= 800) // 500 até 799: Cold
+            else if (CurrentTemperature <= 800) 
             {
                 Player.AddBuff(ModContent.BuffType<Cold>(), 60);
             }
-            // Se a temperatura estiver acima de 799 (ou seja, fora de qualquer faixa de frio),
-            // os buffs já terão sido limpos pelo ClearBuffs inicial e não serão reaplicados.
 
-
-            // 2. Lógica para DEBUFFS DE CALOR
-            // Primeiro, remova TODOS os buffs de calor para garantir que apenas o correto será aplicado
             Player.ClearBuff(ModContent.BuffType<Scorching>());
             Player.ClearBuff(ModContent.BuffType<Hot>());
             Player.ClearBuff(ModContent.BuffType<Warm>());
 
-            if (CurrentTemperature >= 1800) // 1800 até 2000: Scorching
+            if (CurrentTemperature >= 1800) 
             {
                 Player.AddBuff(ModContent.BuffType<Scorching>(), 60);
             }
-            else if (CurrentTemperature >= 1500) // 1500 até 1799: Hot
+            else if (CurrentTemperature >= 1500)
             {
                 Player.AddBuff(ModContent.BuffType<Hot>(), 60);
             }
-            else if (CurrentTemperature >= 1200) // 1200 até 1499: Warm
+            else if (CurrentTemperature >= 1200) 
             {
                 Player.AddBuff(ModContent.BuffType<Warm>(), 60);
             }
-            // Se a temperatura estiver abaixo de 1200 (ou seja, fora de qualquer faixa de calor),
-            // os buffs já terão sido limpos pelo ClearBuffs inicial e não serão reaplicados.
+        
         }
     }
 }

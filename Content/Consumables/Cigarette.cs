@@ -20,8 +20,8 @@ namespace ChallengingTerrariaMod.Content.Consumables
         }
         public override void SetDefaults()
         {
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.useAnimation = 240; 
+            Item.useStyle = ItemUseStyleID.DrinkLong;
+            Item.useAnimation = 240;
             Item.useTime = 240;
             Item.shoot = ModContent.ProjectileType<CigaretteProjectile>();
             Item.shootSpeed = 1f;
@@ -32,6 +32,8 @@ namespace ChallengingTerrariaMod.Content.Consumables
             Item.rare = ItemRarityID.Green;
             Item.value = Item.buyPrice(silver: 50);
             Item.noUseGraphic = true;
+
+            Item.buffTime = 120 * 60;
         }
 
         public override void OnConsumeItem(Player player)

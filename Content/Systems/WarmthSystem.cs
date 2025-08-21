@@ -21,6 +21,8 @@ namespace ChallengingTerrariaMod.Content.Systems
         public const int TEMPERATURE_UPDATE_RATE = 60; // 60 ticks = 1 segundo
         private const float DETECTION_RADIUS_TILES = 15f;
 
+        private bool normalized = false;
+
         // Constantes de temperatura
         public const int ComfortableTemperature = 1000;
         public const int MinTemperature = 0;
@@ -147,17 +149,14 @@ namespace ChallengingTerrariaMod.Content.Systems
 
         private int CalculateTemperatureIncrement(Player player, int currentTemperature)
         {
-            bool hotSourceDetected;
-            bool inWaterLiquid;
+            bool inColdEnvironment = false;
+            bool inWarmEnvironment = false;
 
             List<int> increments = new List<int>();
 
             Point playerTileCoords = player.Center.ToTileCoordinates();
             int detectionRadiusTiles = (int)DETECTION_RADIUS_TILES;
-
-            // Fontes de Calor (Fogueira, Fornalhas, etc.) - apenas se currentTemperature < ComfortableTemperature
             
-            hotSourceDetected = false;
             for (int x = playerTileCoords.X - detectionRadiusTiles; x <= playerTileCoords.X + detectionRadiusTiles; x++)
             {
                 for (int y = playerTileCoords.Y - detectionRadiusTiles; y <= playerTileCoords.Y + detectionRadiusTiles; y++)
@@ -169,81 +168,84 @@ namespace ChallengingTerrariaMod.Content.Systems
                     if (tile.HasTile && (
                         tile.TileType == TileID.Furnaces ||
                         tile.TileType == TileID.Hellforge ||
-                        tile.TileType == TileID.AdamantiteForge || // Inclui Adamantite e Titanium Forge
+                        tile.TileType == TileID.AdamantiteForge ||
                         tile.TileType == TileID.Fireplace ||
                         tile.TileType == TileID.GlassKiln ||
                         tile.TileType == TileID.LihzahrdFurnace ||
                         tile.TileType == TileID.Campfire
                     ))
                     {
-                        hotSourceDetected = true;
-                        if (currentTemperature < ComfortableTemperature)
-                        {
-                            increments.Add(15);
-                        }
+                        inWarmEnvironment = true;
                         break;
                     }
                 }
-                if (hotSourceDetected) {
+                if (inWarmEnvironment)
+                {
                     break;
                 }
             }
 
-            // Dentro da Água - apenas se currentTemperature > ComfortableTemperature
-            
-            inWaterLiquid = false;
-
             if (player.wet && !player.lavaWet && !player.honeyWet)
             {
-                inWaterLiquid = true;
-                if (currentTemperature > ComfortableTemperature)
-                {
-                    increments.Add(-15);
-                }  
+                inColdEnvironment = true;
             }
-            
-            // --- Fontes Primárias ---
 
-            // A noite quando na superfície
-            if (!Main.dayTime && player.ZoneOverworldHeight && !hotSourceDetected)
+            if (!Main.dayTime && player.ZoneOverworldHeight)
             {
                 increments.Add(-3);
+                inColdEnvironment = true;
             }
-            // Na tundra (qualquer camada)
-            if (player.ZoneSnow && !hotSourceDetected)
+            if (player.ZoneSnow)
             {
-                increments.Add(-20);//( normal: -8);
+                increments.Add(-8);
+                inColdEnvironment = true;
             }
-            // Durante Chuvas quando na superfície
-                // Detecção de Tempestade: Chuva forte (Main.raining) + Cobertura de nuvens intensa (Main.cloudAlpha)
-                if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight && !hotSourceDetected)
-                {
-                    increments.Add(-5); // Tempestade
-                }
-                else if (Main.raining && player.ZoneOverworldHeight && !hotSourceDetected)
-                {
-                    increments.Add(-3); // Chuva normal
-                }
+            if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight)
+            {
+                increments.Add(-5);
+                inColdEnvironment = true;
+            }
+            else if (Main.raining && player.ZoneOverworldHeight)
+            {
+                increments.Add(-3);
+                inColdEnvironment = true;
+            }
 
-            // Na praia de dia
-            if (player.ZoneBeach && Main.dayTime && !inWaterLiquid)
+            if (player.ZoneBeach && Main.dayTime)
             {
                 increments.Add(3);
+                inWarmEnvironment = true;
             }
-            // No deserto de dia
-            if (player.ZoneDesert && Main.dayTime && !inWaterLiquid)
+            if (player.ZoneDesert && Main.dayTime)
             {
-                increments.Add(20); // setar pra 5 dps
+                increments.Add(5); 
+                inWarmEnvironment = true;
             }
-            // No Inferno
             if (player.ZoneUnderworldHeight)
             {
                 increments.Add(8);
+                inWarmEnvironment = true;
             }
-            // No Espaço (ZoneSkyHeight é a altura do espaço)
             if (player.ZoneSkyHeight)
             {
                 increments.Add(55);
+                inWarmEnvironment = true;
+            }
+
+            if (inColdEnvironment)
+            {
+                if (currentTemperature > ComfortableTemperature)
+                {
+                    increments.Add(-20);
+                }
+            }
+
+            if (inWarmEnvironment)
+            {
+                if (currentTemperature < ComfortableTemperature)
+                {
+                    increments.Add(20);
+                }
             }
 
             return increments.Sum();

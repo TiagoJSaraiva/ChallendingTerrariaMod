@@ -46,11 +46,13 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
                 if (Main.GameUpdateCount % HungerSystem.HungerTickRate == 0)
                 {
-                    CurrentHunger -= HungerSystem.HungerDecrementIdle;
-
-                    if (Player.velocity.X != 0 || Player.velocity.Y != 0)
+                    if (!Player.HasBuff(ModContent.BuffType<Nourished>()))
                     {
-                        CurrentHunger -= HungerSystem.HungerDecrementMoving;
+                        CurrentHunger -= HungerSystem.HungerDecrementIdle;
+                        if (Player.velocity.X != 0 || Player.velocity.Y != 0)
+                        {
+                            CurrentHunger -= HungerSystem.HungerDecrementMoving;
+                        }
                     }
 
                     CurrentHunger = Utils.Clamp(CurrentHunger, 0, HungerSystem.AbsoluteMaxHunger);
