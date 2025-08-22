@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChallengingTerrariaMod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c9101bba0ab864ef4b2a4064e91a967947165a3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e70abc94004d505e737b248b6fe00c6fda9b785")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChallengingTerrariaMod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChallengingTerrariaMod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

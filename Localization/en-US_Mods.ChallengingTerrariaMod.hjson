@@ -131,7 +131,7 @@ Buffs: {
 
 	Nourished: {
 		DisplayName: Nourished
-		Description: Mods.ChallengingTerrariaMod.Buffs.Nourished.Description
+		Description: Your body is well nourished.
 	}
 }
 
@@ -148,6 +148,21 @@ Items: {
 
 	Vitamin: {
 		DisplayName: Vitamin
+		Tooltip: Prevents hunger loss.
+	}
+
+	AdrenalineInjection: {
+		DisplayName: AdrenalineInjection
+		Tooltip: Prevents sanity loss.
+	}
+
+	CaffeinePill: {
+		DisplayName: Caffeine Pill
+		Tooltip: Prevents rest loss.
+	}
+
+	FoodPill: {
+		DisplayName: Food Pill
 		Tooltip: Prevents hunger loss.
 	}
 }

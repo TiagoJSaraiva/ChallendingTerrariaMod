@@ -25,6 +25,16 @@ namespace ChallengingTerrariaMod.Content.GlobalChanges
                 item.rare = ItemRarityID.Green;
                 item.consumable = true;
             }
+
+            if (item.type == ItemID.WarmthPotion)
+            {
+                item.buffTime = 120 * 60;
+            }
+
+            if (item.type == ItemID.ObsidianSkinPotion)
+            {
+                item.buffTime = 120 * 60;
+            }
         }
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -37,6 +47,18 @@ namespace ChallengingTerrariaMod.Content.GlobalChanges
                 buffTooltip.Text = "Prevents rest loss.";
 
                 TooltipLine descriptionLine = new TooltipLine(Mod, "CustomDescription", "'Hello darkness my old friend'");
+                tooltips.Add(descriptionLine);
+            }
+
+            if (item.type == ItemID.WarmthPotion)
+            {
+                TooltipLine descriptionLine = new TooltipLine(Mod, "CustomDescription", "Makes the player immune to heat sources.");
+                tooltips.Add(descriptionLine);
+            }
+
+            if (item.type == ItemID.ObsidianSkinPotion)
+            {
+                TooltipLine descriptionLine = new TooltipLine(Mod, "CustomDescription", "Makes the player immune to cold sources.");
                 tooltips.Add(descriptionLine);
             }
         }
