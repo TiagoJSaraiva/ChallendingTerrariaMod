@@ -1,1 +1,1 @@
-This description will show up on the steam page, check out https://steamcommunity.com/comment/Guide/formattinghelp.
+This mod adds hunger, sleep, sanity, and temperature systems to Terraria. The goal is to make the game more challenging. If you have any suggestion or question, you can contact me in discord: tigasjs_

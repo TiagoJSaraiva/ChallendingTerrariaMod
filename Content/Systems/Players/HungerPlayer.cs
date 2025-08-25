@@ -46,14 +46,20 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
                 if (Main.GameUpdateCount % HungerSystem.HungerTickRate == 0)
                 {
-                    if (!Player.HasBuff(ModContent.BuffType<Nourished>()))
+                    
+                    CurrentHunger -= HungerSystem.HungerDecrementIdle;
+                    if (Player.velocity.X != 0 || Player.velocity.Y != 0)
                     {
-                        CurrentHunger -= HungerSystem.HungerDecrementIdle;
-                        if (Player.velocity.X != 0 || Player.velocity.Y != 0)
+                        if (Player.HasBuff(ModContent.BuffType<Nourished>()))
+                        {
+                            CurrentHunger -= HungerSystem.HungerDecrementIdle;
+                        }
+                        else
                         {
                             CurrentHunger -= HungerSystem.HungerDecrementMoving;
                         }
                     }
+                    
 
                     CurrentHunger = Utils.Clamp(CurrentHunger, 0, HungerSystem.AbsoluteMaxHunger);
 
@@ -113,11 +119,11 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
                 }
                 else if (Player.HasBuff(BuffID.WellFed2) && Player.buffTime[Player.FindBuffIndex(BuffID.WellFed2)] > 1)
                 {
-                    hungerRestored = 150;
+                    hungerRestored = 250;
                 }
                 else if (Player.HasBuff(BuffID.WellFed) && Player.buffTime[Player.FindBuffIndex(BuffID.WellFed)] > 1)
                 {
-                    hungerRestored = 50;
+                    hungerRestored = 150;
                 }
 
                 if (hungerRestored > 0)

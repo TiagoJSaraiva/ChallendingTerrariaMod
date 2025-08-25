@@ -154,100 +154,102 @@ namespace ChallengingTerrariaMod.Content.Systems
 
             List<int> increments = new List<int>();
 
-            if(!player.HasBuff(BuffID.Warmth)) {  
-                if (player.wet && !player.lavaWet && !player.honeyWet)
-                {
-                    inColdEnvironment = true;
-                }
-
-                if (!Main.dayTime && player.ZoneOverworldHeight)
-                {
-                    increments.Add(-3);
-                    inColdEnvironment = true;
-                }
-                if (player.ZoneSnow)
-                {
-                    increments.Add(-8);
-                    inColdEnvironment = true;
-                }
-                if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight)
-                {
-                    increments.Add(-5);
-                    inColdEnvironment = true;
-                }
-                else if (Main.raining && player.ZoneOverworldHeight)
-                {
-                    increments.Add(-3);
-                    inColdEnvironment = true;
-                }
+            
+            if (player.wet && !player.lavaWet && !player.honeyWet)
+            {
+                inColdEnvironment = true;
             }
 
-            if(!player.HasBuff(BuffID.ObsidianSkin)) {
-                Point playerTileCoords = player.Center.ToTileCoordinates();
-                int detectionRadiusTiles = (int)DETECTION_RADIUS_TILES;
-                
-                for (int x = playerTileCoords.X - detectionRadiusTiles; x <= playerTileCoords.X + detectionRadiusTiles; x++)
+            if (!Main.dayTime && player.ZoneOverworldHeight)
+            {
+                increments.Add(-3);
+                inColdEnvironment = true;
+            }
+            if (player.ZoneSnow)
+            {
+                increments.Add(-8);
+                inColdEnvironment = true;
+            }
+            if (Main.raining && Main.cloudAlpha > 0.7f && player.ZoneOverworldHeight)
+            {
+                increments.Add(-5);
+                inColdEnvironment = true;
+            }
+            else if (Main.raining && player.ZoneOverworldHeight)
+            {
+                increments.Add(-3);
+                inColdEnvironment = true;
+            }
+        
+
+            
+            Point playerTileCoords = player.Center.ToTileCoordinates();
+            int detectionRadiusTiles = (int)DETECTION_RADIUS_TILES;
+            
+            for (int x = playerTileCoords.X - detectionRadiusTiles; x <= playerTileCoords.X + detectionRadiusTiles; x++)
+            {
+                for (int y = playerTileCoords.Y - detectionRadiusTiles; y <= playerTileCoords.Y + detectionRadiusTiles; y++)
                 {
-                    for (int y = playerTileCoords.Y - detectionRadiusTiles; y <= playerTileCoords.Y + detectionRadiusTiles; y++)
-                    {
-                        if (!WorldGen.InWorld(x, y)) continue;
+                    if (!WorldGen.InWorld(x, y)) continue;
 
-                        Tile tile = Main.tile[x, y];
+                    Tile tile = Main.tile[x, y];
 
-                        if (tile.HasTile && (
-                            tile.TileType == TileID.Furnaces ||
-                            tile.TileType == TileID.Hellforge ||
-                            tile.TileType == TileID.AdamantiteForge ||
-                            tile.TileType == TileID.Fireplace ||
-                            tile.TileType == TileID.GlassKiln ||
-                            tile.TileType == TileID.LihzahrdFurnace ||
-                            tile.TileType == TileID.Campfire
-                        ))
-                        {
-                            inWarmEnvironment = true;
-                            break;
-                        }
-                    }
-                    if (inWarmEnvironment)
+                    if (tile.HasTile && (
+                        tile.TileType == TileID.Furnaces ||
+                        tile.TileType == TileID.Hellforge ||
+                        tile.TileType == TileID.AdamantiteForge ||
+                        tile.TileType == TileID.Fireplace ||
+                        tile.TileType == TileID.GlassKiln ||
+                        tile.TileType == TileID.LihzahrdFurnace ||
+                        tile.TileType == TileID.Campfire
+                    ))
                     {
+                        inWarmEnvironment = true;
                         break;
                     }
                 }
-
-                if (player.ZoneBeach && Main.dayTime)
+                if (inWarmEnvironment)
                 {
-                    increments.Add(3);
-                    inWarmEnvironment = true;
-                }
-                if (player.ZoneDesert && Main.dayTime)
-                {
-                    increments.Add(5); 
-                    inWarmEnvironment = true;
-                }
-                if (player.ZoneUnderworldHeight)
-                {
-                    increments.Add(8);
-                    inWarmEnvironment = true;
-                }
-                if (player.ZoneSkyHeight)
-                {
-                    increments.Add(55);
-                    inWarmEnvironment = true;
+                    break;
                 }
             }
 
+            if (player.ZoneBeach && Main.dayTime)
+            {
+                increments.Add(3);
+                inWarmEnvironment = true;
+            }
+            if (player.ZoneDesert && Main.dayTime)
+            {
+                increments.Add(5); 
+                inWarmEnvironment = true;
+            }
+            if (player.ZoneUnderworldHeight)
+            {
+                increments.Add(8);
+                inWarmEnvironment = true;
+            }
+            if (player.ZoneSkyHeight)
+            {
+                increments.Add(40);
+                inWarmEnvironment = true;
+            }
+        
+
             if (inColdEnvironment)
+            {
+                if (currentTemperature > ComfortableTemperature)
                 {
-                    if (currentTemperature > ComfortableTemperature)
-                    {
-                        increments.Add(-20);
-                    }
+                    if (player.HasBuff(BuffID.Warmth)) increments.Add(-4);
+                    increments.Add(-20);
                 }
+            }
 
             if (inWarmEnvironment)
             {
                 if (currentTemperature < ComfortableTemperature)
                 {
+                    if (player.HasBuff(BuffID.ObsidianSkin)) increments.Add(-3);
                     increments.Add(20);
                 }
             }

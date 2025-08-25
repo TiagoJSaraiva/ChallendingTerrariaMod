@@ -121,14 +121,14 @@ namespace ChallengingTerrariaMod.Content.Systems.Players
 
         private void ApplyRestDebuffs()
         {
-            if (timeNoSleep >= 1200)
+            if (timeNoSleep >= 2400) // MUDAR PARA 2400
             {
-                Main.NewText("Your sleep routine has been terrible. Your body is starting to feel the consequences.", Color.DarkBlue);
+                Main.NewText("Your sleep routine has been terrible. Your body is starting to feel the consequences.", Color.LightBlue);
                 Player.AddBuff(ModContent.BuffType<SleepDeprived>(), 600 * 60);
                 timeNoSleep = 0;
             }
 
-            if (Player.HasBuff(ModContent.BuffType<Exhausted>()) && Main.rand.NextFloat() < 0.15f && !Player.HasBuff(BuffID.Confused))
+            if (Player.HasBuff(ModContent.BuffType<Exhausted>()) && Main.rand.NextFloat() < 0.05f && !Player.HasBuff(BuffID.Confused))
             {
                 Player.AddBuff(BuffID.Confused, 2 * 60);
             }

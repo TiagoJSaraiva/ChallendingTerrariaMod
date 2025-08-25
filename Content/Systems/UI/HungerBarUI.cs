@@ -21,7 +21,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
         public override void OnInitialize()
         {
             area = new UIElement();
-            area.Left.Set(1200f, 0f);
+            area.Left.Set(850f, 0f);
             area.Top.Set(20f, 0f);
             area.Width.Set(30, 0f);
             area.Height.Set(50, 0f);
@@ -60,27 +60,27 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             {
                 if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Bloated)
                 {
-                    Main.instance.MouseText("Hunger Meter\nYou're bloated");
+                    Main.instance.MouseText("Hunger Meter\nYou're bloated\nIf you eat more, you might throw up!");
                 }
                 else if (hungerPlayer.CurrentHunger >= HungerSystem.MaxHungerDebuffThreshold_Full)
                 {
-                    Main.instance.MouseText("Hunger Meter\nYou're full");
+                    Main.instance.MouseText("Hunger Meter\nYou're full\nIf you eat more, you might throw up!");
                 }
                 else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Starved)
                 {
-                    Main.instance.MouseText("Hunger Meter\nYou're starving");
+                    Main.instance.MouseText("Hunger Meter\nYou're starving\nEat something!\nThe better the quality of the food, the more it satisfies you.");
                 }
                 else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Famished)
                 {
-                    Main.instance.MouseText("Hunger Meter\nYou're famished");
+                    Main.instance.MouseText("Hunger Meter\nYou're famished\nEat something!\nThe better the quality of the food, the more it satisfies you.");
                 }
                 else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Hungry)
                 {
-                    Main.instance.MouseText("Hunger Meter\nYou're hungry");
+                    Main.instance.MouseText("Hunger Meter\nYou're hungry\nEat something!\nThe better the quality of the food, the more it satisfies you.");
                 }
                 else if (hungerPlayer.CurrentHunger <= HungerSystem.HungerDebuffThreshold_Peckish)
                 {
-                    Main.instance.MouseText("Hunger Meter\nYou're peckish");
+                    Main.instance.MouseText("Hunger Meter\nYou're peckish\nEat something!\nThe better the quality of the food, the more it satisfies you.");
                 }
                 else
                 {

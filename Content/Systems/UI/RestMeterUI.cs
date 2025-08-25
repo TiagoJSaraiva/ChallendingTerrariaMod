@@ -27,7 +27,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                         const int spriteWidth = 30;
                         const int spriteHeight = 50;
 
-                        _area.Left.Set(1150f, 0f);
+                        _area.Left.Set(800f, 0f);
                         _area.Top.Set(20f, 0f);
                         _area.Width.Set(spriteWidth, 0f);
                         _area.Height.Set(spriteHeight, 0f);
@@ -77,15 +77,15 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
 
                                 if (restPlayer.CurrentRest <= restPlayer.exhaustedThreshold)
                                 {
-                                        Main.instance.MouseText("Rest Meter\nYou're exhausted");
+                                        Main.instance.MouseText("Rest Meter\nYou're exhausted\nSleep a little!");
                                 }
                                 else if (restPlayer.CurrentRest <= restPlayer.sleepyThreshold)
                                 {
-                                        Main.instance.MouseText("Rest Meter\nYou're sleepy");
+                                        Main.instance.MouseText("Rest Meter\nYou're sleepy\nSleep a little!");
                                 }
                                 else if (restPlayer.CurrentRest <= restPlayer.tiredThreshold)
                                 {
-                                        Main.instance.MouseText("Rest Meter\nYou're tired");
+                                        Main.instance.MouseText("Rest Meter\nYou're tired\nSleep a little!");
                                 }
                                 else 
                                 {

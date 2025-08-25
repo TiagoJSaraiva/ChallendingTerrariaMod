@@ -1,3 +1,3 @@
-displayName = Challenging Terraria
+displayName = Terrarian Basic Needs
 author = TigasJs
-version = 1.0.0
+version = 1.0.8

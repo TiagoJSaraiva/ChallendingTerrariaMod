@@ -27,7 +27,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
                         int spriteWidth = 30;
                         int spriteHeight = 51;
 
-                        _area.Left.Set(1250f, 0f);
+                        _area.Left.Set(750f, 0f);
                         _area.Top.Set(20f, 0f);
                         _area.Width.Set(spriteWidth, 0f);
                         _area.Height.Set(spriteHeight, 0f);
@@ -77,15 +77,15 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
 
                                 if (sanityPlayer.CurrentSanity <= sanityPlayer.terrifiedThreshold)
                                 {
-                                        Main.instance.MouseText("Sanity meter\nYou're terrified");
+                                        Main.instance.MouseText("Sanity meter\nYou're terrified\nto increase your sanity level, go to a safe place!");
                                 }
                                 else if (sanityPlayer.CurrentSanity <= sanityPlayer.scaredThreshold)
                                 {
-                                        Main.instance.MouseText("Sanity meter\nYou're scared");
+                                        Main.instance.MouseText("Sanity meter\nYou're scared\nto increase your sanity level, go to a safe place!");
                                 }
                                 else if (sanityPlayer.CurrentSanity <= sanityPlayer.stressedThreshold)
                                 {
-                                        Main.instance.MouseText("Sanity meter\nYou're stressed");
+                                        Main.instance.MouseText("Sanity meter\nYou're stressed\nto increase your sanity level, go to a safe place!");
                                 }
                                 else 
                                 {

@@ -31,6 +31,7 @@ namespace ChallengingTerrariaMod.Content.Consumables
             Item.consumable = true;
             Item.buffTime = 60 * 120;
             Item.maxStack = Item.CommonMaxStack;
+            Item.value = Item.buyPrice(silver: 50);
         }
     }
 }

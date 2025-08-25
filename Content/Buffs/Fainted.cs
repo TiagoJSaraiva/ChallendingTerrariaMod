@@ -23,11 +23,20 @@ namespace ChallengingTerrariaMod.Content.Buffs
             player.controlRight = false;
             player.controlLeft = false;
             player.controlDown = false;
-            player.immuneAlpha = 220;
+            player.immuneAlpha = 110;
             player.controlJump = false;
             player.controlHook = false;
             player.controlMount = false;
             player.controlTorch = false;
+        }
+    }
+
+    public class FaintedPlayer : ModPlayer
+    {
+        public override bool CanUseItem(Item item)
+        {
+            if (Player.HasBuff(ModContent.BuffType<Fainted>())) return false;
+            return base.CanUseItem(item);
         }
     }
 }

@@ -111,7 +111,7 @@ Buffs: {
 
 	SleepDeprived: {
 		DisplayName: Sleep Deprived
-		Description: You haven't been sleeping well lately. In this state, you're slowly losing rest points, even during the day. Also, coffee and other types of substances that stops you from getting tired do not work on you.
+		Description: You haven't been sleeping well lately. In this state, you're slowly losing rest points, even during the day.
 	}
 
 	ArmoredMind: {
@@ -143,26 +143,26 @@ Projectiles: {
 Items: {
 	Cigarette: {
 		DisplayName: Cigarette
-		Tooltip: Prevents sanity loss. Smoke in moderation!
+		Tooltip: Retards sanity loss. Smoke in moderation!
 	}
 
 	Vitamin: {
 		DisplayName: Vitamin
-		Tooltip: Prevents hunger loss.
+		Tooltip: Retards hunger loss.
 	}
 
 	AdrenalineInjection: {
-		DisplayName: AdrenalineInjection
-		Tooltip: Prevents sanity loss.
+		DisplayName: Adrenaline Injection
+		Tooltip: Retards sanity loss.
 	}
 
 	CaffeinePill: {
 		DisplayName: Caffeine Pill
-		Tooltip: Prevents rest loss.
+		Tooltip: Retards rest loss.
 	}
 
 	FoodPill: {
 		DisplayName: Food Pill
-		Tooltip: Prevents hunger loss.
+		Tooltip: Retards hunger loss.
 	}
 }

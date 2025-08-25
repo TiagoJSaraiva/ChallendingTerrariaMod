@@ -41,7 +41,7 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             }
 
             warmthMeterImage = new UIImage(warmthBaseTexture.Value);
-            warmthMeterImage.Left.Set(1100f, 0f);
+            warmthMeterImage.Left.Set(700f, 0f);
             warmthMeterImage.Top.Set(20f, 0f);
             warmthMeterImage.Width.Set(60f, 0f);
             warmthMeterImage.Height.Set(60f, 0f);
@@ -120,27 +120,27 @@ namespace ChallengingTerrariaMod.Content.Systems.UI
             {
                 if (warmthPlayer.CurrentTemperature <= 200)
                 {
-                    Main.instance.MouseText("Warmth Meter\nYou're freezing");
+                    Main.instance.MouseText("Warmth Meter\nYou're freezing\nFind a heat source to warm you up! For example, a campfire.");
                 }
                 else if (warmthPlayer.CurrentTemperature <= 500)
                 {
-                    Main.instance.MouseText("Warmth Meter\nYou're very cold");
+                    Main.instance.MouseText("Warmth Meter\nYou're very cold\nFind a heat source to warm you up! For example, a campfire.");
                 }
                 else if (warmthPlayer.CurrentTemperature <= 800)
                 {
-                    Main.instance.MouseText("Warmth Meter\nYou're feeling cold");
+                    Main.instance.MouseText("Warmth Meter\nYou're feeling cold\nFind a heat source to warm you up! For example, a campfire.");
                 }
                 else if (warmthPlayer.CurrentTemperature >= 1800)
                 {
-                    Main.instance.MouseText("Warmth Meter\nYou're scorching");
+                    Main.instance.MouseText("Warmth Meter\nYou're scorching\nFind something to cool you down! Like water, for example.");
                 }
                 else if (warmthPlayer.CurrentTemperature >= 1500)
                 {
-                    Main.instance.MouseText("Warmth Meter\nYou're hot");
+                    Main.instance.MouseText("Warmth Meter\nYou're hot\nFind something to cool you down! Like water, for example.");
                 }
                 else if (warmthPlayer.CurrentTemperature >= 1200)
                 {
-                    Main.instance.MouseText("Warmth Meter\nYou're warm");
+                    Main.instance.MouseText("Warmth Meter\nYou're warm\nFind something to cool you down! Like water, for example.");
                 }
                 else
                 {

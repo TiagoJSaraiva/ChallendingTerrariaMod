@@ -38,6 +38,7 @@ namespace ChallengingTerrariaMod.Content.Consumables
             Item.consumable = true;
             Item.buffTime = 60 * 360;
             Item.maxStack = Item.CommonMaxStack;
+            Item.value = Item.buyPrice(gold: 1);
         }
     }
 }

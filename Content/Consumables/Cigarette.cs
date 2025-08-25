@@ -68,22 +68,22 @@ namespace ChallengingTerrariaMod.Content.Consumables
 
     public class CigarettePlayer : ModPlayer
     {
-        private bool hadCancerBeforeDeath;
-        public override void UpdateDead()
+        public int timeLeft_cancer = 0;
+
+        public override void Kill(double damage, int hitDirection, bool pvp, PlayerDeathReason damageSource)
         {
-            if (Player.HasBuff(ModContent.BuffType<Cancer>()))
+            for (int i = 0; i < Player.buffType.Length; i++)
             {
-                hadCancerBeforeDeath = true;
+                if (Player.buffType[i] == ModContent.BuffType<Cancer>())
+                {
+                    timeLeft_cancer = Player.buffTime[i];
+                    break;
+                }
             }
         }
-
         public override void OnRespawn()
         {
-            if (hadCancerBeforeDeath == true)
-            {
-                Player.AddBuff(ModContent.BuffType<Cancer>(), 60 * 3000);
-                hadCancerBeforeDeath = false;
-            }
+            Player.AddBuff(ModContent.BuffType<Cancer>(), timeLeft_cancer);
         }
 
         public override void ModifyNursePrice(NPC nurse, int health, bool removeDebuffs, ref int price)

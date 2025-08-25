@@ -17,7 +17,7 @@ namespace ChallengingTerrariaMod.Content.Systems
         public const int restUpdateRate = 60; // Atualiza a cada 60 ticks (1 segundo real)
 
         // Sleep gain and loss of the player
-        private const int sleepPerSecond = 3;
+        private const int sleepPerSecond = 4;
 
         private const int sleepPerSecondAccelerated = 24; // Tiredness loss per second when the time is accelerated
 
@@ -99,7 +99,7 @@ namespace ChallengingTerrariaMod.Content.Systems
                             restPlayer.timeNoSleep -= 10;
                             restPlayer.timeNoSleep = Utils.Clamp(restPlayer.timeNoSleep, 0, 1200);
                             if (Main.dayRate > 1)
-                            {
+                            { 
                                 restPlayer.CurrentRest += sleepPerSecondAccelerated;
                             }
                             else
@@ -107,13 +107,16 @@ namespace ChallengingTerrariaMod.Content.Systems
                                 restPlayer.CurrentRest += sleepPerSecond;
                             }
                         }
-                        else if (player.HasBuff(ModContent.BuffType<SleepDeprived>()))
+                        else if (player.HasBuff(ModContent.BuffType<SleepDeprived>()) || !Main.dayTime)
                         {
-                            restPlayer.CurrentRest -= sleepPerSecond;
-                        }
-                        else if (!Main.dayTime && !player.HasBuff(ModContent.BuffType<Cafeinated>()))
-                        {
-                            restPlayer.CurrentRest -= sleepPerSecond;
+                            if (player.HasBuff(ModContent.BuffType<Cafeinated>()))
+                            {
+                                restPlayer.CurrentRest -= sleepPerSecond / 2;
+                            }
+                            else
+                            {
+                                restPlayer.CurrentRest -= sleepPerSecond;
+                            }
                         }
                         restPlayer.CurrentRest = Utils.Clamp(restPlayer.CurrentRest, minSleep, maxSleep);
                     }

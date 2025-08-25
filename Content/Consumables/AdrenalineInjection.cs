@@ -19,8 +19,8 @@ namespace ChallengingTerrariaMod.Content.Consumables
         public override void SetDefaults()
         {
             Item.value = Item.buyPrice(silver: 50);
-            Item.useAnimation = 30;
-            Item.useTime = 30;
+            Item.useAnimation = 20;
+            Item.useTime = 20;
             Item.UseSound = null;
             Item.rare = ItemRarityID.LightRed;
             Item.useStyle = ItemUseStyleID.EatFood;
@@ -28,6 +28,7 @@ namespace ChallengingTerrariaMod.Content.Consumables
             Item.consumable = true;
             Item.buffTime = 60 * 360;
             Item.maxStack = Item.CommonMaxStack;
+            Item.value = Item.buyPrice(gold: 1);
         }
     }
 }
